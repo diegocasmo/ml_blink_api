@@ -1,6 +1,6 @@
-# Load environmental variables
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv() # Load environmental variables
+
 import os
 from flask import Flask
 from flask_cors import CORS
