@@ -1,7 +1,6 @@
 # Load environmental variables
-import os
 from dotenv import load_dotenv
-load_dotenv(dotenv_path="%s/.env" % os.getcwd())
+load_dotenv()
 
 # Load application
 from ml_blink_api import app

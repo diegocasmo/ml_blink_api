@@ -2,13 +2,19 @@ from flask import Blueprint, session, request, jsonify
 from cerberus import Validator
 from ml_blink_api.utils.db import db
 from bson import ObjectId
-from ml_blink_api.models.matching import schema
+from ml_blink_api.models.matching import schema, serialize
 from ml_blink_api.utils.auth import requires_auth
 from ml_blink_api.utils.http_status_code import (
-  HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_500_INTERNAL_SERVER_ERROR
+  HTTP_200_OK, HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY,
+  HTTP_500_INTERNAL_SERVER_ERROR
 )
 
 matchings = Blueprint('matchings', __name__)
+
+@matchings.route('', methods=['GET'])
+def get():
+  matchings = db.matchings.find()
+  return jsonify([serialize(x) for x in matchings]), HTTP_200_OK
 
 @matchings.route('', methods=['POST', 'OPTIONS'])
 @requires_auth
