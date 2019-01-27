@@ -1,11 +1,11 @@
 from flask import Blueprint, request, session, jsonify
 from cerberus import Validator
-from api.db import db
-from api.models.user import schema, serialize
-from api.utils.auth import (
+from ml_blink_api.utils.db import db
+from ml_blink_api.models.user import schema, serialize
+from ml_blink_api.utils.auth import (
   password_matches, requires_auth, requires_unauth
 )
-from api.utils.http_status_code import (
+from ml_blink_api.utils.http_status_code import (
   HTTP_200_OK, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_401_UNAUTHORIZED
 )
 

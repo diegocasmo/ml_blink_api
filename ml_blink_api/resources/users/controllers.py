@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from api.db import db
-from api.models.user import schema
-from api.utils.auth import encrypt_user_password, requires_unauth
-from api.utils.http_status_code import (
+from ml_blink_api.utils.db import db
+from ml_blink_api.models.user import schema
+from ml_blink_api.utils.auth import encrypt_user_password, requires_unauth
+from ml_blink_api.utils.http_status_code import (
   HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_500_INTERNAL_SERVER_ERROR
 )
 
