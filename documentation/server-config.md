@@ -24,50 +24,31 @@ sudo apt-get install libapache2-mod-wsgi python-dev
 sudo a2enmod wsgi
 ```
 
-### Create Directory Structure
-  - Run the  following commands to create the required directory structure in `/var/www`:
-```
-cd /var/www 
-sudo mkdir ml_blink_api
-cd ml_blink_api
-sudo mkdir ml_blink_api
-cd ml_blink_api
-```
-  - The file structure should now look like this (you can visualize it by running the command `tree` in `/var/www` - if not installed, run the command `sudo apt-get install tree`):
-```
-├── html
-│   └── index.html
-└── ml_blink_api
-    └── ml_blink_api
-```
-  - Create a sample Flask application in `/var/www/ml_blink_api/ml_blink_api` by running the following command
-```
-sudo vi __init__.py
-```
-  - Add following logic to the file:
-``` python
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello World"
-
-if __name__ == "__main__":
-    app.run()
-```
-
-### Install Flask and Dependencies
-  - Install `pip`
+### Download `ml_blink_api`
+  - Run the following commands to download the repo
 ``` bash
-sudo apt-get update
-sudo apt-get install python-pip
+cd /var/www/
+sudo wget https://github.com/diegocasmo/ml_blink_api/archive/master.zip
 ```
-  -  Install `flask`
+  - Unzip it
 ``` bash
-sudo pip install Flask
+sudo unzip master.zip
+sudo rm master.zip
 ```
+  - Change the directory name
+``` bash
+sudo mv ./ml_blink_api-master/ ./ml_blink_api/
+```
+  - Install python dependencies
+``` bash
+cd ml_blink_api/
+sudo pip install -r requirements.txt
+```
+  - Create the environmental variables file
+```
+sudo touch /var/www/ml_blink_api/.env
+```
+  - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
 
 ### Configure and Enable a New Virtual Host
   - Issue the following command in your terminal:
@@ -98,26 +79,13 @@ sudo a2ensite ml_blink_api
 sudo service apache2 reload
 ```
 
-### Create the `.wsgi` File
-  - Apache uses the `.wsgi` file to serve the Flask app. Move to the `/var/www/ml_blink_api` directory and create a file named `ml_blink_api.wsgi` with following commands:
-``` bash
-cd /var/www/ml_blink_api
-sudo vi ml_blink_api.wsgi 
-```
-  - Add the following lines of code to the `ml_blink_api.wsgi` file:
-``` bash
-#!/usr/bin/python
-import sys
-import logging
-logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/var/www/ml_blink_api/")
-
-from ml_blink_api import app as application
-```
-
 ### Restart Apache
   - Restart apache by running the following command:
 ``` bash
 sudo service apache2 restart
 ```
   - You have successfully deployed a flask application! You should be able to access it at `http://<Floating IP>`
+
+### Debugging
+  - If the installation doesn't work, the following commands might be helpful:
+    - `tail /var/log/apache2/error.log` will tail errors log by the Apache server. If accessing `http://<Floating IP>` returns an error, this command will give you a more detailed description of what happened.
