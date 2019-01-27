@@ -76,7 +76,7 @@ sudo apt-get install -y mongodb-org
 ``` bash
 sudo service mongod start
 ```
-  - Verify that MongoDB has started successfully (search for a line alongs the lines of "[initandlisten] waiting for connections on port 27017")
+  - Verify that MongoDB has started successfully (search for a line similar to "[initandlisten] waiting for connections on port 27017")
 ``` bash
 sudo cat /var/log/mongodb/mongod.log
 ```
@@ -147,4 +147,4 @@ sudo service apache2 restart
 
 ### Debugging
   - If the installation doesn't work, the following commands might be helpful:
-    - `tail /var/log/apache2/error.log` will tail errors log by the Apache server. If accessing `http://<Floating IP>` returns an error, this command will give you a more detailed description of what happened.
+    - `tail /var/log/apache2/error.log` will show log errors by the Apache server. If accessing `http://<Floating IP>` returns an error, this command will give you a more detailed description of what happened.
