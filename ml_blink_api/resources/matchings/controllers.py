@@ -19,11 +19,15 @@ def get():
 @matchings.route('', methods=['POST', 'OPTIONS'])
 @requires_auth
 def create():
-  # Get attributes from request
-  attrs = {
-    'user_id': session['user_id'],
-    'accuracy': float(request.form.get('accuracy', None))
-  }
+  # Attempt to get attributes from request
+  try:
+    attrs = {
+      'user_id': session['user_id'],
+      'accuracy': float(request.form.get('accuracy', None))
+    }
+  except Exception as e:
+    return jsonify({'error': str(e)}), HTTP_422_UNPROCESSABLE_ENTITY
+
   # Validate matching attributes
   v = Validator(schema)
   if v.validate(attrs):

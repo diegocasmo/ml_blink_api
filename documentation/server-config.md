@@ -2,6 +2,8 @@
 
 This guide explains how to configure an Ubuntu 16.04.5 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16.04.5 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, these are some helpful resources:
   - [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+  - [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+  - [How to quickly setup MongoDB on DigitalOcean](https://medium.com/ninjaconcept/how-to-quickly-setup-mongodb-on-digitalocean-3d9791a7aaa4)
 
 ### Install Apache
   - Run the following commands to install the Apache web server
@@ -23,32 +25,6 @@ sudo apt-get install libapache2-mod-wsgi python-dev
 ```
 sudo a2enmod wsgi
 ```
-
-### Download `ml_blink_api`
-  - Run the following commands to download the repo
-``` bash
-cd /var/www/
-sudo wget https://github.com/diegocasmo/ml_blink_api/archive/master.zip
-```
-  - Unzip it
-``` bash
-sudo unzip master.zip
-sudo rm master.zip
-```
-  - Change the directory name
-``` bash
-sudo mv ./ml_blink_api-master/ ./ml_blink_api/
-```
-  - Install python dependencies
-``` bash
-cd ml_blink_api/
-sudo pip install -r requirements.txt
-```
-  - Create the environmental variables file
-```
-sudo touch /var/www/ml_blink_api/.env
-```
-  - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
 
 ### Configure and Enable a New Virtual Host
   - Issue the following command in your terminal:
@@ -78,6 +54,89 @@ sudo a2ensite ml_blink_api
 ``` bash
 sudo service apache2 reload
 ```
+
+### Install MongoDB
+  - Import the public key used by the package management system
+``` bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+```
+  - Create a list file for MongoDB
+``` bash
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+```
+  - Reload local package database
+``` bash
+sudo apt-get update
+```
+  - Install the MongoDB packages
+```
+sudo apt-get install -y mongodb-org
+```
+  - Start MongoDB
+``` bash
+sudo service mongod start
+```
+  - Verify that MongoDB has started successfully (search for a line alongs the lines of "[initandlisten] waiting for connections on port 27017")
+``` bash
+sudo cat /var/log/mongodb/mongod.log
+```
+
+### Enable MongoDB Authorization
+  - Enter the MongoDB shell and connect to the admin database
+``` bash
+mongo
+use admin
+```
+  - Create an admin user (replace `<user>` and `<pwd>` with the corresponding values you desire to use)
+``` bash
+db.createUser(
+  {
+    user: "<user>",
+    pwd: "<pwd>",
+    roles: ["root"]
+  }
+)
+```
+  - Activate MongoDB authorization system by modifying `/etc/mongod.conf`
+``` bash
+sudo vi /etc/mongod.conf
+```
+  - Add the following lines at the end of the file
+``` bash
+security:
+  authorization: enabled
+```
+  - Restart MongoDB to apply the changes
+```
+sudo service mongod restart
+```
+
+### Download `ml_blink_api`
+  - Run the following commands to download the repo
+``` bash
+cd /var/www/
+sudo wget https://github.com/diegocasmo/ml_blink_api/archive/master.zip
+```
+  - Unzip it
+``` bash
+sudo unzip master.zip
+sudo rm master.zip
+```
+  - Change the directory name
+``` bash
+sudo mv ./ml_blink_api-master/ ./ml_blink_api/
+```
+  - Install python dependencies
+``` bash
+cd ml_blink_api/
+sudo pip install -r requirements.txt
+```
+  - Create the environmental variables file
+```
+sudo touch /var/www/ml_blink_api/.env
+```
+  - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
+    - If unfamiliar with a MongoDB URI, read more about [MongoDB URI format here](https://docs.mongodb.com/manual/reference/connection-string/)
 
 ### Restart Apache
   - Restart apache by running the following command:
