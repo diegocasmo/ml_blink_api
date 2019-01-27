@@ -6,7 +6,7 @@ from ml_blink_api.resources.sessions.controllers import sessions
 from ml_blink_api.resources.matchings.controllers import matchings
 
 app = Flask(__name__)
-app.debug = os.getenv('DEBUG')
+app.debug = int(os.getenv('DEBUG'))
 app.secret_key = os.getenv('SECRET_KEY')
 CORS(app)
 
