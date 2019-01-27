@@ -1,6 +1,6 @@
 # Server Configuration
 
-This guide explains how to configure a Ubuntu 16.04.5 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16.04.5 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, These are some helpful resources:
+This guide explains how to configure an Ubuntu 16.04.5 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16.04.5 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, these are some helpful resources:
   - [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 
 ### Install Apache
@@ -97,7 +97,6 @@ sudo a2ensite ml_blink_api
 ``` bash
 sudo service apache2 reload
 ```
-
 
 ### Create the `.wsgi` File
   - Apache uses the `.wsgi` file to serve the Flask app. Move to the `/var/www/ml_blink_api` directory and create a file named `ml_blink_api.wsgi` with following commands:

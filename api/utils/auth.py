@@ -1,7 +1,7 @@
 import bcrypt
 from functools import wraps
 from flask import session, jsonify
-from ml_blink_api.utils.http_status_code import HTTP_401_UNAUTHORIZED
+from api.utils.http_status_code import HTTP_401_UNAUTHORIZED
 
 def encrypt_user_password(user):
   '''

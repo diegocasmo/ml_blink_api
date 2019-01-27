@@ -4,9 +4,9 @@ load_dotenv() # Load environmental variables
 import os
 from flask import Flask
 from flask_cors import CORS
-from ml_blink_api.resources.users.controllers import users
-from ml_blink_api.resources.sessions.controllers import sessions
-from ml_blink_api.resources.matchings.controllers import matchings
+from api.resources.users.controllers import users
+from api.resources.sessions.controllers import sessions
+from api.resources.matchings.controllers import matchings
 
 app = Flask(__name__)
 app.debug = os.getenv('DEBUG')
