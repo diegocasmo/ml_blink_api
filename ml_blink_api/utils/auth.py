@@ -9,8 +9,8 @@ def encrypt_user_password(user):
   with that salt
   '''
   user['salt'] = bcrypt.gensalt()
-  password = user['password']
-  user['password'] = bcrypt.hashpw(password, user['salt'])
+  password = user.get('password')
+  user['password'] = bcrypt.hashpw(password, user.get('salt'))
   return user
 
 
@@ -18,7 +18,7 @@ def password_matches(user, password):
   '''
   Return true if a user password matches the argument `password`, false otherwise
   '''
-  return bcrypt.hashpw(password, user['salt']) == user['password']
+  return bcrypt.hashpw(password, user.get('salt')) == user.get('password')
 
 def requires_auth(f):
   '''
