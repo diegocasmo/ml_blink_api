@@ -19,16 +19,9 @@ def get():
 @matchings.route('', methods=['POST', 'OPTIONS'])
 @requires_auth
 def create():
-  # Attempt to get attributes from request
-  try:
-    attrs = {
-      'user_id': session['user_id'],
-      'accuracy': float(request.form.get('accuracy', None))
-    }
-  except Exception as e:
-    return jsonify({'error': str(e)}), HTTP_422_UNPROCESSABLE_ENTITY
-
   # Validate matching attributes
+  attrs = request.form.to_dict()
+  attrs['user_id'] = session.get('user_id')
   v = Validator(schema)
   if v.validate(attrs):
     # Make user exists in DB

@@ -4,6 +4,7 @@ from bson import ObjectId
 schema = {
   'accuracy': {
     'type': 'float',
+    'coerce': float,
     'required': True,
   },
   'user_id': {

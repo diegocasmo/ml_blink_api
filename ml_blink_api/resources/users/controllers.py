@@ -12,12 +12,8 @@ users = Blueprint('users', __name__)
 @users.route('', methods=['POST', 'OPTIONS'])
 @requires_unauth
 def create():
-  # Get attributes from request
-  attrs = {
-    'email': request.form.get('email', None),
-    'password': request.form.get('password', None)
-  }
   # Validate user attributes
+  attrs = request.form.to_dict()
   v = Validator(schema)
   if v.validate(attrs):
     # Make sure user email is unique
