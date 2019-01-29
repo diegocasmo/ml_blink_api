@@ -1,15 +1,16 @@
 # Server Configuration
 
-This guide explains how to configure an Ubuntu 16.04.5 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16.04.5 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, these are some helpful resources:
+This guide explains how to configure an Ubuntu 16 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, these are some helpful resources:
   - [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
   - [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
   - [How to quickly setup MongoDB on DigitalOcean](https://medium.com/ninjaconcept/how-to-quickly-setup-mongodb-on-digitalocean-3d9791a7aaa4)
+  - [How to Install MongoDB on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
 
 ### Install Apache
   - Run the following commands to install the Apache web server
 ``` bash
 sudo apt-get update
-sudo apt-get install apache2
+sudo apt-get install -y apache2
 ```
   - Verify Apache is correctly installed by visiting the server's Floating IP address. If everything went smoothly, you should see the default Ubuntu Apache web page.
 ``` bash
@@ -19,7 +20,7 @@ http://<Floating IP>
 ### Install and Enable `mod_wsgi`
   - WSGI (Web Server Gateway Interface) is an interface between web servers and web applications for python. `Mod_wsgi` is an Apache HTTP server mod that enables Apache to serve Flask applications.
 ``` bash
-sudo apt-get install libapache2-mod-wsgi python-dev
+sudo apt-get install -y libapache2-mod-wsgi-py3 python-dev
 ```
   - Enable `mod_wsgi`
 ```
@@ -56,29 +57,18 @@ sudo service apache2 reload
 ```
 
 ### Install MongoDB
-  - Import the public key used by the package management system
+  - [Follow steps 1 through 4 to install MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#import-the-public-key-used-by-the-package-management-system)
+  - Next, start MongoDB with `systemctl`
 ``` bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+sudo systemctl start mongod
 ```
-  - Create a list file for MongoDB
+  - You can also use `systemctl` to check that the service has started properly
 ``` bash
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+sudo systemctl status mongod
 ```
-  - Reload local package database
+  - The last step is to enable automatically starting MongoDB when the system starts
 ``` bash
-sudo apt-get update
-```
-  - Install the MongoDB packages
-```
-sudo apt-get install -y mongodb-org
-```
-  - Start MongoDB
-``` bash
-sudo service mongod start
-```
-  - Verify that MongoDB has started successfully (search for a line similar to "[initandlisten] waiting for connections on port 27017")
-``` bash
-sudo cat /var/log/mongodb/mongod.log
+sudo systemctl enable mongod
 ```
 
 ### Enable MongoDB Authorization
@@ -126,17 +116,21 @@ sudo rm master.zip
 ``` bash
 sudo mv ./ml_blink_api-master/ ./ml_blink_api/
 ```
+  - Install `pip3`
+``` bash
+sudo apt-get -y install python3-pip
+```
   - Install python dependencies
 ``` bash
 cd ml_blink_api/
-sudo pip install -r requirements.txt
+sudo pip3 install -r requirements.txt
 ```
   - Create the environmental variables file
 ```
 sudo touch /var/www/ml_blink_api/.env
 ```
   - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
-    - If unfamiliar with a MongoDB URI, read more about [MongoDB URI format here](https://docs.mongodb.com/manual/reference/connection-string/)
+    - The MongoDB URI follows this format: `mongodb://<user>:<pwd>@localhost:27017`
 
 ### Restart Apache
   - Restart apache by running the following command:
