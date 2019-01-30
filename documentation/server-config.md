@@ -1,10 +1,37 @@
 # Server Configuration
 
-This guide explains how to configure an Ubuntu 16 server to serve the `ml_blink_api` Flask application. It assumes Ubuntu 16 is already installed, SSH is available on it, and the machine has been assigned a Floating IP address. If you get stuck, these are some helpful resources:
+This guide explains how to configure an Ubuntu 16.04 server to serve the `ml_blink_api` Flask application in the SNIC Cloud. If you get stuck, these are some helpful resources:
   - [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
   - [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
   - [How to quickly setup MongoDB on DigitalOcean](https://medium.com/ninjaconcept/how-to-quickly-setup-mongodb-on-digitalocean-3d9791a7aaa4)
   - [How to Install MongoDB on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
+
+### Access & Security Configuration
+  - Go to `Compute > Access & Security` and click in `Create Security Group`
+  - Name the new security group `ml_blink_api`
+  - Once created, add the following rules with their default values to it: `HTTP`, and `HTTPS`
+
+### Launch Instance
+  - Go to `Compute > Instance` and click in `Launch Instance`
+  - These are the only options that need to be changed, all others stay with their defaults:
+    - Name the new instance `ml_blink_api` in the `Details` tab
+    - In the `Source` tab, select the option `Image` as the `Boot Source` and find the Ubuntu 16.04 image
+    - Select `ssc.xlarge` in the `Flavor` tab
+    - Select `IPv4` in the `Networks` tab
+    - Select `ml_blink_api` in the `Security Groups` tab
+    - Create a key pair in the `Key Pair` tab. Save it in your machine in a save place
+  - Click on `Launch Instance`
+  - Once created, associate a Floating IP address to it
+
+### SSH Into the Instance
+  - In your machine, change the permissions of the `.pem` key pair file (replacing `<file_name>` with the name of the file)
+```
+chmod 400 <file_name>.pem
+```
+  - SSH into the machine (replace `<file_name>`, and `<Floating IP>` with their values)
+``` bash
+ssh -i <file_name>.pem ubuntu@<Floating IP>
+```
 
 ### Install Apache
   - Run the following commands to install the Apache web server
@@ -32,7 +59,7 @@ sudo a2enmod wsgi
 ```bash
 sudo vi /etc/apache2/sites-available/ml_blink_api.conf
 ```
-  - Add the following lines of code to the file to configure the virtual host (replace `<Floating IP>` with the server's actual Floating IP address, and the ServerAdmin with your email)
+  - Add the following lines of code to the file to configure the virtual host (replace `<Floating IP>` with the server's actual Floating IP address, and the ServerAdmin with your email). Notice the `/` at the end of the Floating IP address is not included!
 ```
 <VirtualHost *:80>
     ServerName http://<Floating IP>
@@ -87,6 +114,7 @@ db.createUser(
   }
 )
 ```
+  - Exit the MongoDB shell by typing `exit` and pressing enter
   - Activate MongoDB authorization system by modifying `/etc/mongod.conf`
 ``` bash
 sudo vi /etc/mongod.conf
@@ -101,20 +129,40 @@ security:
 sudo service mongod restart
 ```
 
-### Download `ml_blink_api`
+### Configure Git
+  - Configure Git with your GitHub account
+``` bash
+git config --global user.name "<username>"
+git config --global user.email "your@github.email"
+```
+  - Generate a new SSH key (press Enter when prompted for file to save or passphrase)
+```
+sudo ssh-keygen -t rsa -b 4096 -C "<your@github.email>"
+```
+  - Change key's file permissions
+``` bash
+sudo chmod 600 /root/.ssh/id_rsa.pub
+```
+  - Start the ssh-agent in the background
+```
+eval "$(ssh-agent -s)"
+```
+  - Add your SSH private key to the ssh-agent
+```
+sudo ssh-add -k /root/.ssh/id_rsa
+```
+  - Add SSH key to your GitHub account
+```
+sudo cat /root/.ssh/id_rsa.pub
+```
+  - Go to `Settings > SSH and GPG keys` in GitHub, click on New SSH Key, and paste the key
+
+### Pull Latest `ml_blink_api`
   - Run the following commands to download the repo
 ``` bash
-cd /var/www/
-sudo wget https://github.com/diegocasmo/ml_blink_api/archive/master.zip
-```
-  - Unzip it
-``` bash
-sudo unzip master.zip
-sudo rm master.zip
-```
-  - Change the directory name
-``` bash
-sudo mv ./ml_blink_api-master/ ./ml_blink_api/
+sudo git clone git@github.com:diegocasmo/ml_blink_api.git
+cd ml_blink_api/
+sudo git pull
 ```
   - Install `pip3`
 ``` bash
@@ -122,7 +170,6 @@ sudo apt-get -y install python3-pip
 ```
   - Install python dependencies
 ``` bash
-cd ml_blink_api/
 sudo pip3 install -r requirements.txt
 ```
   - Create the environmental variables file

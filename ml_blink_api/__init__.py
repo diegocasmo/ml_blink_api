@@ -8,7 +8,7 @@ from ml_blink_api.resources.matchings.controllers import matchings
 app = Flask(__name__)
 app.debug = int(os.getenv('DEBUG'))
 app.secret_key = os.getenv('SECRET_KEY')
-CORS(app)
+CORS(app, origins="http://user.it.uu.se")
 
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(sessions, url_prefix='/sessions')

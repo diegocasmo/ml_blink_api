@@ -10,6 +10,6 @@ Server API for ML Blink.
 ### [TODO: Local Development](/.)
 
 ### [Server Configuration](./documentation/server-config.md)
-  - A guide to configure an Ubuntu 16 server to serve the `ml_blink_api` Flask application.
+  - A guide to configure an Ubuntu 16.04 server to serve the `ml_blink_api` Flask application in the SNIC Cloud.
 
 ### [TODO: Deployment](./)
