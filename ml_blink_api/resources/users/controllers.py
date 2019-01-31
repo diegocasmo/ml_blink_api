@@ -1,6 +1,5 @@
 import os
 from flask import Blueprint, request, jsonify
-from datetime import datetime
 from cerberus import Validator
 from ml_blink_api.utils.db import db
 from ml_blink_api.models.user import user_schema, get_temp_test_user
@@ -18,11 +17,9 @@ def create():
     return jsonify({'error': 'Temporary test user already exists'}), HTTP_422_UNPROCESSABLE_ENTITY
   else:
     # Validate user attributes
-    attrs = request.get_json()
-    attrs['created_at'] = datetime.now()
-    attrs['updated_at'] = None
     v = Validator(user_schema)
-    if v.validate(attrs):
+    if v.validate(request.get_json()):
+      attrs = v.document
       # Make sure it's the temporary test user
       if attrs.get('email') == os.getenv('TEMP_TEST_USER_EMAIL'):
         # Insert user in DB with hashed password

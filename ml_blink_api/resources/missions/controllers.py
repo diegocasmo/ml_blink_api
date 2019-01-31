@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from datetime import datetime
 from cerberus import Validator
 from ml_blink_api.utils.db import db
 from ml_blink_api.models.user import get_temp_test_user
@@ -17,16 +16,13 @@ def get():
 
 @missions.route('', methods=['POST', 'OPTIONS'])
 def create():
-  attrs = request.get_json()
   # Assume mission belongs to the temporary test user
   user = get_temp_test_user()
   if user:
-    # Assign mission to user and validate it
-    attrs['user_id'] = str(user.get('_id'))
-    attrs['created_at'] = datetime.now()
-    attrs['updated_at'] = None
+    # Validate mission attributes
     v = Validator(mission_schema)
-    if v.validate(attrs):
+    if v.validate(request.get_json()):
+      attrs = v.document
       # Insert valid mission in DB
       if db.missions.insert_one(attrs).inserted_id:
         return jsonify({}), HTTP_201_CREATED
