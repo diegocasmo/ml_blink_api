@@ -5,26 +5,27 @@ This document lists all the endpoints defined by the resources the ML-Bink API e
 ## Resources:
 
 ### Users
-  - Description: An API user which can log in/out of the API, create, and read resources.
+  - Description: A user who can log in/out of the API, create, and read resources from it.
   - Endpoints:
-    - `POST /users`:
+    - `POST /users`: create a user
       - Requires authentication: no
-      - Schema validation: [User](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/user.py#L4)
+      - Schema validation: [User](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/user.py)
+        - Note: As of now, the API only supports creating a single user, which must have the same email as the `TEMP_TEST_USER_EMAIL` environmental variable.
 
-### Sessions
-  - Description: Sessions are used by the ML-Blink API to authenticate users. Once a user is successfully created, these endpoints can be used to log/in out of the API.
+### Missions
+  - Description: An ML-Blink mission details.
   - Endpoints:
-    - `POST /sessions`:
+    - `GET /missions`: get all missions
       - Requires authentication: no
-    - `DELETE /sessions`:
-      - Requires authentication: yes
+    - `POST /missions`: create a mission
+      - Requires authentication: no
+      - Schema validation: [Mission](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/mission.py)
+        - Note: the `user_id` attribute is automatically added by the API to the mission. The `user_id` will for now always be equal to the temporary test user `_id`.
 
-### Matchings
-  - Description: An ML-Blink mission matching details.
+### Sessions (temporarily disabled until the sign up/in features are implemented in ML-Blink UI)
+  - Description: Sessions are used by the ML-Blink API to authenticate users. Once a user is successfully created, these endpoints can be used to sign in/out of the API.
   - Endpoints:
-    - `GET /matchings`:
+    - `POST /sessions`: create a session
       - Requires authentication: no
-    - `POST /matchings`:
+    - `DELETE /sessions`: delete a session
       - Requires authentication: yes
-      - Schema validation: [Matching](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/matching.py#L4)
-        - note the `user_id` attribute is automatically added by the API to the matching, since only an authenticated user can access this endpoint

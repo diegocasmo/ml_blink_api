@@ -1,3 +1,4 @@
+import os
 from ml_blink_api.utils.db import db
 
 # A schema which specifies the attributes of a user and their requirements
@@ -24,9 +25,9 @@ def remove_auth_attrs(user):
     user.pop(k)
   return user
 
-def get_test_user():
+def get_temp_test_user():
   '''
   A temporary test user, to whom all resources with a reference to a user belong to
-  (matchings, comments, etc)
+  (missions, comments, etc)
   '''
-  return db.users.find_one({'email': 'darth.vader@it.uu.se'})
+  return db.users.find_one({'email': os.getenv('TEMP_TEST_USER_EMAIL')})
