@@ -33,5 +33,5 @@ mission_schema = {
   'solved': {'type': 'boolean', 'coerce': bool, 'required': True, 'nullable': False},
   'image_one': image_schema,
   'image_two': image_schema,
-  'created_at': {'type': 'datetime', 'default': datetime.now(), 'readonly': True}
+  'created_at': {'type': 'datetime', 'default_setter': lambda _ : datetime.now(), 'readonly': True}
 }

@@ -14,7 +14,7 @@ user_schema = {
     'required': True, 'nullable': False
   },
   'salt': {'type': 'string'},
-  'created_at': {'type': 'datetime', 'default': datetime.now(), 'readonly': True}
+  'created_at': {'type': 'datetime', 'default_setter': lambda _ : datetime.now(), 'readonly': True}
 }
 
 def remove_auth_attrs(user):
