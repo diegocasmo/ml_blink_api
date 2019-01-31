@@ -5,13 +5,13 @@ transformations_schema = {
   'type': 'dict',
   'required': True,
   'schema': {
-    'x': {'type': 'float', 'coerce': float, 'required': True, 'nullable': False},
-    'y': {'type': 'float', 'coerce': float, 'required': True, 'nullable': False},
-    'width': {'type': 'float', 'coerce': float, 'required': True, 'nullable': False},
-    'height': {'type': 'float', 'coerce': float, 'required': True, 'nullable': False},
-    'scale_x': {'type': 'float', 'coerce': float, 'default': 1, 'nullable': False},
-    'scale_y': {'type': 'float', 'coerce': float, 'default': 1, 'nullable': False},
-    'rotation': {'type': 'float', 'coerce': float, 'default': 0, 'nullable': False}
+    'x': {'type': 'float', 'required': True, 'nullable': False},
+    'y': {'type': 'float', 'required': True, 'nullable': False},
+    'width': {'type': 'float', 'required': True, 'nullable': False},
+    'height': {'type': 'float', 'required': True, 'nullable': False},
+    'scale_x': {'type': 'float', 'default': 1, 'nullable': False},
+    'scale_y': {'type': 'float', 'default': 1, 'nullable': False},
+    'rotation': {'type': 'float', 'default': 0, 'nullable': False}
   }
 }
 
@@ -19,7 +19,7 @@ image_schema = {
   'type': 'dict',
   'required': True,
   'schema': {
-    'key': {'type': 'integer', 'coerce': int, 'required': True, 'nullable': False},
+    'key': {'type': 'integer', 'required': True, 'nullable': False},
     'band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
     'dataset': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
     'transformations': transformations_schema
@@ -28,8 +28,8 @@ image_schema = {
 
 mission_schema = {
   'user_id': {'type': 'object_id', 'default_setter': lambda _ : get_temp_test_user().get('_id'), 'readonly': True},
-  'accuracy': {'type': 'float', 'coerce': float, 'min': 0, 'max': 100, 'required': True, 'nullable': False},
-  'solved': {'type': 'boolean', 'coerce': bool, 'required': True, 'nullable': False},
+  'accuracy': {'type': 'float', 'min': 0, 'max': 100, 'required': True, 'nullable': False},
+  'solved': {'type': 'boolean', 'required': True, 'nullable': False},
   'image_one': image_schema,
   'image_two': image_schema,
   'created_at': {'type': 'datetime', 'default_setter': lambda _ : datetime.now(), 'readonly': True}
