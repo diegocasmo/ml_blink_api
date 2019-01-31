@@ -26,7 +26,6 @@ image_schema = {
   }
 }
 
-
 mission_schema = {
   'user_id': {'type': 'string', 'default_setter': lambda _ : str(get_temp_test_user().get('_id')), 'readonly': True},
   'accuracy': {'type': 'float', 'coerce': float, 'min': 0, 'max': 100, 'required': True, 'nullable': False},
