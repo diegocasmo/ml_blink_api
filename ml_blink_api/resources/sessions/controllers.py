@@ -14,7 +14,7 @@ sessions = Blueprint('sessions', __name__)
 @sessions.route('', methods=['POST', 'OPTIONS'])
 @requires_unauth
 def create():
-  attrs = request.form.to_dict()
+  attrs = request.get_json()
   # Validate user attributes
   v = Validator(schema)
   if v.validate(attrs):

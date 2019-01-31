@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
+from datetime import datetime
 from cerberus import Validator
 from ml_blink_api.utils.db import db
-from ml_blink_api.models.user import schema
-from ml_blink_api.utils.auth import encrypt_user_password, requires_unauth
+from ml_blink_api.models.user import user_schema
+from ml_blink_api.utils.auth import encrypt_user_password
 from ml_blink_api.utils.http_status_code import (
   HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_500_INTERNAL_SERVER_ERROR
 )
@@ -10,11 +11,12 @@ from ml_blink_api.utils.http_status_code import (
 users = Blueprint('users', __name__)
 
 @users.route('', methods=['POST', 'OPTIONS'])
-@requires_unauth
 def create():
   # Validate user attributes
-  attrs = request.form.to_dict()
-  v = Validator(schema)
+  attrs = request.get_json()
+  attrs['created_at'] = datetime.now()
+  attrs['updated_at'] = None
+  v = Validator(user_schema)
   if v.validate(attrs):
     # Make sure user email is unique
     user = db.users.find_one({'email': attrs.get('email')})
