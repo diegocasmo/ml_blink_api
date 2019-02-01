@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
 app.debug = int(os.getenv('DEBUG'))
 app.secret_key = os.getenv('SECRET_KEY')
-CORS(app, origins=os.getenv('ORIGINS'))
+CORS(app, origins=os.getenv('ORIGINS').split(','))
 
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(missions, url_prefix='/missions')
