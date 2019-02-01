@@ -19,7 +19,6 @@ image_schema = {
   'type': 'dict',
   'required': True,
   'schema': {
-    'key': {'type': 'integer', 'required': True, 'nullable': False},
     'band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
     'dataset': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
     'transformations': transformations_schema
@@ -28,8 +27,9 @@ image_schema = {
 
 mission_schema = {
   'user_id': {'type': 'object_id', 'default_setter': lambda _ : get_temp_test_user().get('_id'), 'readonly': True},
+  'image_key': {'type': 'integer', 'required': True, 'nullable': False},
+  'accuracy_threshold': {'type': 'float', 'min': 0, 'max': 100, 'required': True, 'nullable': False},
   'accuracy': {'type': 'float', 'min': 0, 'max': 100, 'required': True, 'nullable': False},
-  'solved': {'type': 'boolean', 'required': True, 'nullable': False},
   'image_one': image_schema,
   'image_two': image_schema,
   'created_at': {'type': 'datetime', 'default_setter': lambda _ : datetime.now(), 'readonly': True}
