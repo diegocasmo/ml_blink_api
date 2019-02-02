@@ -21,3 +21,13 @@ This document lists all the endpoints defined by the resources the ML-Bink API e
       - Requires authentication: no
       - Schema validation: [Mission](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/mission.py)
         - Note: the `user_id` attribute is automatically added by the API to the mission. The `user_id` will for now always be equal to the temporary test user `_id`.
+
+### Comments
+  - Description: Comments related to an `image_key`.
+  - Endpoints:
+    - `GET /comments?image_key=int`: get all comments that belong to an `image_key`. If the `image_key` query parameter is not provided, it will return all comments in the database
+      - Requires authentication: no
+    - `POST /comments`: create a comment
+      - Requires authentication: no
+      - Schema validation: [Comment](https://github.com/diegocasmo/ml_blink_api/blob/master/ml_blink_api/models/comment.py)
+        - Note: the `user_id` attribute is automatically added by the API to the comment. The `user_id` will for now always be equal to the temporary test user `_id`.
