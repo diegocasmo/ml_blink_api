@@ -14,7 +14,7 @@ comments = Blueprint('comments', __name__)
 def get():
   image_key = request.args.get('image_key')
   # Allow to filter comments by 'image_key'
-  if image_key.isdigit():
+  if image_key and image_key.isdigit():
     comments = db.comments.find({'image_key': int(image_key)})
     return jsonify(list(comments)), HTTP_200_OK
   else:
