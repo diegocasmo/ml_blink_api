@@ -32,5 +32,5 @@ mission_schema = {
   'accuracy': {'type': 'float', 'min': 0, 'max': 100, 'required': True, 'nullable': False},
   'image_one': image_schema,
   'image_two': image_schema,
-  'created_at': {'type': 'integer', 'required': True, 'nullable': False}
+  'created_at': {'type': 'number', 'required': True, 'nullable': False}
 }
