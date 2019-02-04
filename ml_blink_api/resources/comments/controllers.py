@@ -1,3 +1,4 @@
+from pymongo import DESCENDING
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
 from ml_blink_api.utils.db import db
@@ -15,10 +16,13 @@ def get():
   image_key = request.args.get('image_key')
   # Allow to filter comments by 'image_key'
   if image_key and image_key.isdigit():
-    comments = db.comments.find({'image_key': int(image_key)})
+    comments = db.comments.find({'image_key': int(image_key)}) \
+                .sort('created_at', DESCENDING)
     return jsonify(list(comments)), HTTP_200_OK
   else:
-    return jsonify(list(db.comments.find())), HTTP_200_OK
+    comments = db.comments.find() \
+                .sort('created_at', DESCENDING)
+    return jsonify(list(comments)), HTTP_200_OK
 
 @comments.route('', methods=['POST', 'OPTIONS'])
 def create():
