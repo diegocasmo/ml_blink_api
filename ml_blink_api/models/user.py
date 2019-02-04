@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+import time
 from ml_blink_api.utils.db import db
 
 # A schema which specifies the attributes of a user and their requirements
@@ -14,7 +14,7 @@ user_schema = {
     'required': True, 'nullable': False
   },
   'salt': {'type': 'string'},
-  'created_at': {'type': 'datetime', 'default_setter': lambda _ : datetime.now(), 'readonly': True}
+'created_at': {'type': 'number', 'default_setter': lambda _ : int(round(time.time() * 1000))}
 }
 
 def remove_auth_attrs(user):
