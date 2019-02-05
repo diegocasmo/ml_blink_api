@@ -4,6 +4,14 @@ from ml_blink_api.utils.db import db
 
 # A schema which specifies the attributes of a user and their requirements
 user_schema = {
+  'first_name': {
+    'type': 'string', 'minlength': 2, 'maxlength': 255, 'required': True,
+    'empty': False, 'nullable': False
+  },
+  'last_name': {
+    'type': 'string', 'minlength': 2, 'maxlength': 255, 'required': True,
+    'empty': False, 'nullable': False
+  },
   'email': {
     'type': 'string', 'minlength': 2, 'maxlength': 255, 'required': True,
     'empty': False, 'nullable': False,
@@ -14,7 +22,7 @@ user_schema = {
     'required': True, 'nullable': False
   },
   'salt': {'type': 'string'},
-'created_at': {'type': 'number', 'default_setter': lambda _ : int(round(time.time() * 1000))}
+  'created_at': {'type': 'number', 'required': True, 'nullable': False}
 }
 
 def remove_auth_attrs(user):

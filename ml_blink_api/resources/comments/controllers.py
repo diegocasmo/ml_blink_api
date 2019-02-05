@@ -13,16 +13,23 @@ comments = Blueprint('comments', __name__)
 
 @comments.route('', methods=['GET'])
 def get():
-  image_key = request.args.get('image_key')
+  # Initial query will retrieve all comments
+  query = {}
   # Allow to filter comments by 'image_key'
+  image_key = request.args.get('image_key')
   if image_key and image_key.isdigit():
-    comments = db.comments.find({'image_key': int(image_key)}) \
-                .sort('created_at', DESCENDING)
-    return jsonify(list(comments)), HTTP_200_OK
-  else:
-    comments = db.comments.find() \
-                .sort('created_at', DESCENDING)
-    return jsonify(list(comments)), HTTP_200_OK
+    query['image_key'] = int(image_key)
+  comments = db.comments.aggregate([
+    {'$lookup': {'from': 'users', 'localField': 'user_id', 'foreignField': '_id', 'as': 'user'}},
+    {'$unwind': '$user'},
+    {'$match': query},
+    {
+      # Remove private user attributes
+      '$project': {'user.created_at': 0, 'user.email': 0, 'user.password': 0, 'user.salt': 0}
+    },
+    {'$sort': {'created_at': DESCENDING}}
+  ])
+  return jsonify(list(comments)), HTTP_200_OK
 
 @comments.route('', methods=['POST', 'OPTIONS'])
 def create():
