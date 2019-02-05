@@ -1,5 +1,4 @@
 from ml_blink_api.models.user import get_temp_test_user
-import time
 
 transformations_schema = {
   'type': 'dict',

@@ -1,5 +1,4 @@
 from ml_blink_api.models.user import get_temp_test_user
-import time
 
 comment_schema = {
   'user_id': {'type': 'object_id', 'default_setter': lambda _ : get_temp_test_user().get('_id'), 'readonly': True},

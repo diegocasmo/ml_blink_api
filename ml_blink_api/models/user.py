@@ -1,5 +1,4 @@
 import os
-import time
 from ml_blink_api.utils.db import db
 
 # A schema which specifies the attributes of a user and their requirements
