@@ -160,6 +160,7 @@ sudo cat /root/.ssh/id_rsa.pub
 ### Pull Latest `ml_blink_api`
   - Run the following commands to download the repo
 ``` bash
+cd /var/www/
 sudo git clone git@github.com:diegocasmo/ml_blink_api.git
 cd ml_blink_api/
 sudo git pull
