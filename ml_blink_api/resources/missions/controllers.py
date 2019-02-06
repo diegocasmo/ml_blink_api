@@ -32,3 +32,29 @@ def create():
       return jsonify(v.errors), HTTP_422_UNPROCESSABLE_ENTITY
   else:
     return jsonify({'error': 'Test user doesn\'t exist'}), HTTP_422_UNPROCESSABLE_ENTITY
+
+@missions.route('/max_accuracy', methods=['GET'])
+def max_accuracy():
+  # Initial query will return missions mapped by their 'image_key' with max accuracy achieved
+  query = {}
+  # Allow to filter missions by 'image_key'
+  image_key = request.args.get('image_key')
+  if image_key and image_key.isdigit():
+    query['image_key'] = int(image_key)
+
+  # Map missions by their 'image_key' (if provided) and max 'accuracy' achieved
+  missions = db.missions.aggregate([
+    {'$group': {'_id': '$image_key', 'max_accuracy': {'$max':'$accuracy'}}},
+    {'$addFields': {'image_key': '$_id'}},
+    {'$project': {'_id': 0}},
+    {'$match': query}
+  ])
+
+  results = list(missions)
+  if len(results) == 0:
+    # If no mission has such 'image_key', then max accuracy so far achieved is None
+    return jsonify({'image_key': query.get('image_key'), 'max_accuracy': None}), HTTP_200_OK
+  elif len(results) == 1:
+    return jsonify(results[0]), HTTP_200_OK
+  else:
+    return jsonify(results), HTTP_200_OK
