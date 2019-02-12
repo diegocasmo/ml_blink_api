@@ -256,5 +256,5 @@ $RECYCLE.BIN/
 environment.yml
 
 # Ignore beta sample images
-/static/beta_images/PanSTARRS_ltd/*.jpg
-/static/beta_images/USNO1001/*.gif
+/ml_blink_api/static/beta_images/PanSTARRS_ltd/*.jpg
+/ml_blink_api/static/beta_images/USNO1001/*.gif
