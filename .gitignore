@@ -252,9 +252,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Ignore Conda environment
-environment.yml
-
 # Ignore beta sample images
 /ml_blink_api/static/beta_images/PanSTARRS_ltd/*.jpg
 /ml_blink_api/static/beta_images/USNO1001/*.gif

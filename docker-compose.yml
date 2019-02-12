@@ -2,9 +2,16 @@ version: '3'
 services:
   web:
     build: .
+    command: python3 __init__.py
     env_file:
       - .env
     volumes:
       - .:/ml_blink_api
     ports:
       - '5000:5000'
+    links:
+      - db
+  db:
+    image: mongo:4.0.6
+    ports:
+      - '27017:27017'
