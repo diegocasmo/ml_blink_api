@@ -179,6 +179,7 @@ sudo touch /var/www/ml_blink_api/.env
 ```
   - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
     - The MongoDB URI follows this format: `mongodb://<user>:<pwd>@localhost:27017`
+    - Set `ENV=production`
 
 ### Restart Apache
   - Restart apache by running the following command:
