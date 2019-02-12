@@ -254,3 +254,7 @@ $RECYCLE.BIN/
 
 # Ignore Conda environment
 environment.yml
+
+# Ignore beta sample images
+/static/beta_images/PanSTARRS_ltd/*.jpg
+/static/beta_images/USNO1001/*.gif
