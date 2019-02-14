@@ -7,11 +7,11 @@ Server API for ML Blink.
 ### Local Development
   - [Install Docker](https://www.docker.com/products/docker-desktop)
   - Create an `.env` file using `.env.example` as a starting point (i.e., `cp .env.example .env`)
-    - Set `ENV=development`
+    - Set `FLASK_ENV=development`
     - There's no need to set the `MONGO_URI` for local development
     - Set `ORIGINS=http://localhost:8080`
   - Run `docker-compose build` to build the Docker services
-    - Only run this once or if the Docker container has been updated
+    - Only run this once or if the Dockerfile has been updated
   - Run `docker-compose up` to start the Docker container services
   - Run `mongo 127.0.0.1:27017` to start the MongoDB shell
     - This is not required to start the application, but can be useful when you want to manually check the database's collections

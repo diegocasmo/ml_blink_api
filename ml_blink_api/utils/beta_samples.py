@@ -2,23 +2,7 @@ import os
 import csv
 import time
 from itertools import islice
-from cerberus import Validator
-from ml_blink_api.utils.db import db
-from ml_blink_api.models.sample import sample_schema
 from ml_blink_api.settings import APP_STATIC
-
-def insert_beta_samples_in_db():
-  '''
-  Insert valid beta samples in database
-  '''
-  # Retrieve samples from .csv
-  samples = get_beta_csv_samples()
-  # Parse samples as defined in `sample_schema`
-  parsed_samples = map(lambda x: parse_beta_sample(x), samples)
-  # Filter samples by those that adhere to the `sample_schema` definition
-  v = Validator(sample_schema)
-  valid_samples = list(filter(lambda x: v.validate(x), parsed_samples))
-  db.samples.insert_many(valid_samples)
 
 def get_beta_csv_samples(file_name = 'beta.csv'):
   '''
@@ -39,8 +23,8 @@ def parse_beta_sample(sample):
   as_float = lambda x: None if x == '?' else float(x)
   as_int = lambda x: None if x == '?' else int(x)
   image_key = as_int(sample[13])
-  usno_images_dir = "{}/beta_images/USNO1001".format(APP_STATIC)
-  panstarr_images_dir = "{}/beta_images/PanSTARRS_ltd".format(APP_STATIC)
+  usno_images_dir = '/static/beta_images/USNO1001'
+  panstarr_images_dir = '/static/beta_images/PanSTARRS_ltd'
   return {
     'usno_b1_id': sample[1],
     'usno_ra': as_float(sample[2]),

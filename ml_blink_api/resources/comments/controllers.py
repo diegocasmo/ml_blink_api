@@ -1,7 +1,7 @@
 from pymongo import DESCENDING
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.utils.db import db
+from ml_blink_api.config.db import db
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.comment import comment_schema
 from ml_blink_api.utils.http_status_code import (

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.utils.db import db
+from ml_blink_api.config.db import db
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.mission import mission_schema
 from ml_blink_api.utils.http_status_code import (

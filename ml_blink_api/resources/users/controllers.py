@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.utils.db import db
+from ml_blink_api.config.db import db
 from ml_blink_api.models.user import user_schema, get_temp_test_user
 from ml_blink_api.utils.auth import encrypt_user_password
 from ml_blink_api.utils.http_status_code import (

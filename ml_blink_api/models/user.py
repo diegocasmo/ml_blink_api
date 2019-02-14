@@ -1,5 +1,5 @@
 import os
-from ml_blink_api.utils.db import db
+from ml_blink_api.config.db import db
 
 # A schema which specifies the attributes of a user and their requirements
 user_schema = {

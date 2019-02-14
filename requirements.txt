@@ -6,3 +6,5 @@ py-bcrypt==0.4
 pymongo==3.7.2
 python-dotenv==0.10.1
 Werkzeug==0.14.1
+Celery==4.2.0
+redis==3.1.0

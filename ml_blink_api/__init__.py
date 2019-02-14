@@ -4,11 +4,12 @@ from datetime import datetime
 from json import JSONEncoder
 from flask import Flask
 from flask_cors import CORS
+from cerberus import Validator, TypeDefinition
 from ml_blink_api.resources.users.controllers import users
 from ml_blink_api.resources.missions.controllers import missions
 from ml_blink_api.resources.comments.controllers import comments
 from ml_blink_api.resources.samples.controllers import samples
-from cerberus import Validator, TypeDefinition
+from ml_blink_api.resources.counters.controllers import counters
 
 # Extend `cerberus` validator types with an ObjectId Type
 Validator.types_mapping['object_id'] = TypeDefinition('object_id', (ObjectId,), ())
@@ -22,13 +23,16 @@ class CustomJSONEncoder(JSONEncoder):
       return obj.isoformat()
     return JSONEncoder.default(self, obj)
 
+# Configure the Flask application
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
 app.debug = int(os.getenv('DEBUG'))
 app.secret_key = os.getenv('SECRET_KEY')
 CORS(app, origins=os.getenv('ORIGINS').split(','))
 
+# Register API endpoints using blueprint
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(missions, url_prefix='/missions')
 app.register_blueprint(comments, url_prefix='/comments')
 app.register_blueprint(samples, url_prefix='/samples')
+app.register_blueprint(counters, url_prefix='/counters')

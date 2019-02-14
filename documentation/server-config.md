@@ -5,6 +5,7 @@ This guide explains how to configure an Ubuntu 16.04 server to serve the `ml_bli
   - [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
   - [How to quickly setup MongoDB on DigitalOcean](https://medium.com/ninjaconcept/how-to-quickly-setup-mongodb-on-digitalocean-3d9791a7aaa4)
   - [How to Install MongoDB on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
+  - [How To Install and Configure Redis on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04)
 
 ### Access & Security Configuration
   - Go to `Compute > Access & Security` and click in `Create Security Group`
@@ -179,7 +180,7 @@ sudo touch /var/www/ml_blink_api/.env
 ```
   - Fill the newly created `.env` file assigning the variables declared in `.env.example` their real values
     - The MongoDB URI follows this format: `mongodb://<user>:<pwd>@localhost:27017`
-    - Set `ENV=production`
+    - Set `FLASK_ENV=production`
 
 ### Restart Apache
   - Restart apache by running the following command:

@@ -3,6 +3,7 @@ services:
   web:
     build: .
     command: python3 __init__.py
+    restart: always
     env_file:
       - .env
     volumes:
@@ -11,7 +12,23 @@ services:
       - '5000:5000'
     links:
       - db
+      - redis
+  worker:
+    build: .
+    command: celery -A ml_blink_api.jobs.tasks worker -B --loglevel=info
+    restart: always
+    user: nobody
+    env_file:
+      - .env
+    volumes:
+      - .:/ml_blink_api
+    links:
+      - redis
   db:
     image: mongo:4.0.6
     ports:
       - '27017:27017'
+  redis:
+    image: redis:5.0.3
+    ports:
+      - '6379:6379'
