@@ -6,6 +6,7 @@ This guide explains how to configure an Ubuntu 16.04 server to serve the `ml_bli
   - [How to quickly setup MongoDB on DigitalOcean](https://medium.com/ninjaconcept/how-to-quickly-setup-mongodb-on-digitalocean-3d9791a7aaa4)
   - [How to Install MongoDB on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
   - [How To Install and Configure Redis on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04)
+  - [How to Set Up a Task Queue with Celery and RabbitMQ](https://www.linode.com/docs/development/python/task-queue-celery-rabbitmq/)
 
 ### Access & Security Configuration
   - Go to `Compute > Access & Security` and click in `Create Security Group`
@@ -130,6 +131,9 @@ security:
 sudo service mongod restart
 ```
 
+### Install and Configure Redis
+  - [Follow this guide, step-by-step, to install and configure Redis](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04)
+
 ### Configure Git
   - Configure Git with your GitHub account
 ``` bash
@@ -187,6 +191,73 @@ sudo touch /var/www/ml_blink_api/.env
 ``` bash
 sudo service apache2 restart
 ```
+
+### Configure Celery
+  - Create a new service definition in `/etc/systemd/system/celeryd.service`:
+``` bash
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type=forking
+User=root
+Group=root
+EnvironmentFile=/etc/default/celeryd
+WorkingDirectory=/var/www/ml_blink_api
+ExecStart=/bin/sh -c '${CELERY_BIN} multi start ${CELERYD_NODES} \
+  -A ${CELERY_APP} -B --pidfile=${CELERYD_PID_FILE} \
+  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} ${CELERYD_OPTS}'
+ExecStop=/bin/sh -c '${CELERY_BIN} multi stopwait ${CELERYD_NODES} \
+  --pidfile=${CELERYD_PID_FILE}'
+ExecReload=/bin/sh -c '${CELERY_BIN} multi restart ${CELERYD_NODES} \
+  -A ${CELERY_APP} -B --pidfile=${CELERYD_PID_FILE} \
+  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} ${CELERYD_OPTS}'
+
+[Install]
+WantedBy=multi-user.target
+```
+  - Create the `/etc/default/celeryd` configuration file. Note that in addition to the configuration below, you MUST manually add all the enviromental variables at the top of this file:
+``` bash
+#------------ Settings for ML Blink API ------------#
+# Copy/paste all variables in the `/var/www/ml_blink_api/.env` file here
+
+# Name of nodes to start
+CELERYD_NODES="w1"
+
+# Absolute or relative path to the 'celery' command:
+CELERY_BIN="/usr/local/bin/celery"
+
+# App instance to use
+CELERY_APP="ml_blink_api.jobs.tasks"
+
+# How to call manage.py
+CELERYD_MULTI="multi"
+
+# Where to chdir at start.
+CELERYBEAT_CHDIR="/var/www/ml_blink_api/"
+
+# Extra arguments to celerybeat
+CELERYBEAT_OPTS="--schedule=/var/run/celery/celerybeat-schedule"
+
+# - %n will be replaced with the first part of the nodename.
+# - %I will be replaced with the current child process index
+#   and is important when using the prefork pool to avoid race conditions.
+CELERYD_PID_FILE="/var/run/celery/%n.pid"
+CELERYD_LOG_FILE="/var/log/celery/%n%I.log"
+CELERYD_LOG_LEVEL="INFO"
+```
+  - Create log and pid directories with `systemd-tmpfiles` in `/etc/tmpfiles.d/celery.conf`:
+``` bash
+d /var/run/celery 0755 root root -
+d /var/log/celery 0755 root root -
+```
+  - Reload `systemctl` daemon by running `sudo systemctl daemon-reload`
+  - Enable the service to startup at boot: `sudo systemctl enable celeryd`
+  - Start the service `sudo systemctl start celeryd`
+  - Check that the worker is running correctly: `cat /var/log/celery/w1.log`
+
+### Access the API
   - You have successfully deployed a flask application! You should be able to access it at `http://<Floating IP>`
 
 ### Debugging
