@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.config.db import db
+from ml_blink_api.config.db import missions_collection
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.mission import mission_schema
 from ml_blink_api.utils.http_status_code import (
@@ -12,7 +12,7 @@ missions = Blueprint('missions', __name__)
 
 @missions.route('', methods=['GET'])
 def get():
-  return jsonify(list(db.missions.find())), HTTP_200_OK
+  return jsonify(list(missions_collection.find())), HTTP_200_OK
 
 @missions.route('', methods=['POST', 'OPTIONS'])
 def create():
@@ -24,7 +24,7 @@ def create():
     if v.validate(request.get_json()):
       attrs = v.document
       # Insert valid mission in DB
-      if db.missions.insert_one(attrs).inserted_id:
+      if missions_collection.insert_one(attrs).inserted_id:
         return jsonify({}), HTTP_201_CREATED
       else:
         return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR
@@ -43,7 +43,7 @@ def max_accuracy():
     query['image_key'] = int(image_key)
 
   # Map missions by their 'image_key' (if provided) and max 'accuracy' achieved
-  missions = db.missions.aggregate([
+  missions = missions_collection.aggregate([
     {'$group': {'_id': '$image_key', 'max_accuracy': {'$max':'$accuracy'}}},
     {'$addFields': {'image_key': '$_id'}},
     {'$project': {'_id': 0}},

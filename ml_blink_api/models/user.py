@@ -1,5 +1,5 @@
 import os
-from ml_blink_api.config.db import db
+from ml_blink_api.config.db import users_collection
 
 # A schema which specifies the attributes of a user and their requirements
 user_schema = {
@@ -38,4 +38,4 @@ def get_temp_test_user():
   A temporary test user, to whom all resources with a reference to a user belong to
   (missions, comments, etc)
   '''
-  return db.users.find_one({'email': os.getenv('TEMP_TEST_USER_EMAIL')})
+  return users_collection.find_one({'email': os.getenv('TEMP_TEST_USER_EMAIL')})

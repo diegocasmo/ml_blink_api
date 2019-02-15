@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.config.db import db
+from ml_blink_api.config.db import users_collection
 from ml_blink_api.models.user import user_schema, get_temp_test_user
 from ml_blink_api.utils.auth import encrypt_user_password
 from ml_blink_api.utils.http_status_code import (
@@ -23,7 +23,7 @@ def create():
       # Make sure it's the temporary test user
       if attrs.get('email') == os.getenv('TEMP_TEST_USER_EMAIL'):
         # Insert user in DB with hashed password
-        if db.users.insert_one(encrypt_user_password(attrs)).inserted_id:
+        if users_collection.insert_one(encrypt_user_password(attrs)).inserted_id:
           return jsonify({}), HTTP_201_CREATED
         else:
           return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR

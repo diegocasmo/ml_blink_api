@@ -9,7 +9,6 @@ from ml_blink_api.resources.users.controllers import users
 from ml_blink_api.resources.missions.controllers import missions
 from ml_blink_api.resources.comments.controllers import comments
 from ml_blink_api.resources.samples.controllers import samples
-from ml_blink_api.resources.counters.controllers import counters
 
 # Extend `cerberus` validator types with an ObjectId Type
 Validator.types_mapping['object_id'] = TypeDefinition('object_id', (ObjectId,), ())
@@ -35,4 +34,3 @@ app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(missions, url_prefix='/missions')
 app.register_blueprint(comments, url_prefix='/comments')
 app.register_blueprint(samples, url_prefix='/samples')
-app.register_blueprint(counters, url_prefix='/counters')

@@ -1,7 +1,7 @@
 from pymongo import DESCENDING
 from flask import Blueprint, request, jsonify
 from cerberus import Validator
-from ml_blink_api.config.db import db
+from ml_blink_api.config.db import comments_collection
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.comment import comment_schema
 from ml_blink_api.utils.http_status_code import (
@@ -19,7 +19,7 @@ def get():
   image_key = request.args.get('image_key')
   if image_key and image_key.isdigit():
     query['image_key'] = int(image_key)
-  comments = db.comments.aggregate([
+  comments = comments_collection.aggregate([
     {'$lookup': {'from': 'users', 'localField': 'user_id', 'foreignField': '_id', 'as': 'user'}},
     {'$unwind': '$user'},
     {'$match': query},
@@ -41,7 +41,7 @@ def create():
     if v.validate(request.get_json()):
       attrs = v.document
       # Insert valid comment in DB
-      if db.comments.insert_one(attrs).inserted_id:
+      if comments_collection.insert_one(attrs).inserted_id:
         return jsonify({}), HTTP_201_CREATED
       else:
         return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR
