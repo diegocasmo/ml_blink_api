@@ -50,7 +50,7 @@ def insert_candidate(v, attrs):
   with an array of errors otherwise
   '''
   # Verify if candidate should be stored
-  theta = 0.5
+  theta = 15
   if v >= theta: raise ValueError('v = {}, but it must be v < {}. Skipping potential candidate...'.format(v, theta))
 
   # Candidate should be inserted if valid

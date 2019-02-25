@@ -4,7 +4,7 @@ from functools import reduce
 from ml_blink_api.utils.usno import get_usno_vector
 from ml_blink_api.utils.panstarr import get_panstarr_vector
 from ml_blink_api.config.celery_config import celery, logger
-from ml_blink_api.config.db import missions_collection, active_set_collection
+from ml_blink_api.config.db import missions_collection, candidates_collection, active_set_collection
 from ml_blink_api.models.candidate import generate_random_candidate, has_expected_dim, insert_candidate
 
 @celery.task
@@ -41,23 +41,27 @@ def generate_candidate():
   Attempt to generate a candidate using the active set vectors
   '''
   try:
-    # Generate a potential candidate
-    candidate = generate_random_candidate()
-    logger.info('Candidate `image_key`: {}'.format(candidate.get('image_key')))
-    logger.info('Candidate `usno_band`: {}'.format(candidate.get('usno_band')))
-    logger.info('Candidate `panstarr_band`: {}'.format(candidate.get('panstarr_band')))
+    num_candidates = candidates_collection.find({}).count()
+    if num_candidates < 10:
+      # Generate a potential candidate
+      candidate = generate_random_candidate()
+      logger.info('Candidate `image_key`: {}'.format(candidate.get('image_key')))
+      logger.info('Candidate `usno_band`: {}'.format(candidate.get('usno_band')))
+      logger.info('Candidate `panstarr_band`: {}'.format(candidate.get('panstarr_band')))
 
-    # Get USNO and PanSTARRs images' vectors
-    usno_vector = get_usno_vector(candidate.get('image_key'), candidate.get('usno_band'))
-    panstarr_vector = get_panstarr_vector(candidate.get('image_key'), candidate.get('panstarr_band'))
+      # Get USNO and PanSTARRs images' vectors
+      usno_vector = get_usno_vector(candidate.get('image_key'), candidate.get('usno_band'))
+      panstarr_vector = get_panstarr_vector(candidate.get('image_key'), candidate.get('panstarr_band'))
 
-    # Compute `v`
-    v = compute_v(usno_vector, panstarr_vector)
-    logger.info('`v` value: {}'.format(v))
+      # Compute `v`
+      v = compute_v(usno_vector, panstarr_vector)
+      logger.info('`v` value: {}'.format(v))
 
-    # Attempt to insert candidate in DB
-    candidate_id = insert_candidate(v, candidate)
-    logger.info('Inserted candidate {} in DB'.format(candidate_id))
+      # Attempt to insert candidate in DB
+      candidate_id = insert_candidate(v, candidate)
+      logger.info('Inserted candidate {} in DB'.format(candidate_id))
+    else:
+      logger.info('There are {} candidates stored in DB. Skipping...'.format(num_candidates))
   except Exception as e:
     logger.error('Unable to generate candidate: {}'.format(e))
 
