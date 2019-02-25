@@ -8,7 +8,9 @@ client = MongoClient(
 db = client[os.getenv('MONGO_DATABASE')]
 
 # Store a reference to each MongoDB collection
-comments_collection = db.comments
-missions_collection = db.missions
-samples_collection  = db.samples
-users_collection    = db.missions
+comments_collection   = db.comments
+missions_collection   = db.missions
+samples_collection    = db.samples
+users_collection      = db.users
+candidates_collection = db.candidates
+active_set_collection = db.active_set

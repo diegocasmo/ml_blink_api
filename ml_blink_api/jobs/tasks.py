@@ -1,8 +1,14 @@
 from cerberus import Validator
+from ml_blink_api.models.sample import sample_schema
 from ml_blink_api.config.celery_config import celery
 from ml_blink_api.config.db import samples_collection
-from ml_blink_api.models.sample import sample_schema
+from ml_blink_api.jobs.crawler import generate_candidate
 from ml_blink_api.utils.beta_samples import get_beta_csv_samples, parse_beta_sample
+
+@celery.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+  # Executes every 300.0 seconds (5 min)
+  sender.add_periodic_task(300.0, generate_candidate.s(), name='generate candidate')
 
 @celery.task
 def insert_beta_samples_in_db():
