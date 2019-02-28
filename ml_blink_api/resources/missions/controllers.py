@@ -3,7 +3,7 @@ from cerberus import Validator
 from ml_blink_api.config.db import missions_collection
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.mission import mission_schema
-from ml_blink_api.jobs.crawler import process_created_mission
+from ml_blink_api.jobs.process_mission import tprocess_created_mission
 from ml_blink_api.utils.http_status_code import (
   HTTP_200_OK, HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_500_INTERNAL_SERVER_ERROR
 )
@@ -26,7 +26,7 @@ def create():
       mission_id = missions_collection.insert_one(v.document).inserted_id
       if mission_id:
         # Process mission details in the background
-        process_created_mission.delay(str(mission_id))
+        tprocess_created_mission.delay(str(mission_id))
         return jsonify({}), HTTP_201_CREATED
       else:
         return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR

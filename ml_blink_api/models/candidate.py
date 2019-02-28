@@ -11,6 +11,7 @@ candidate_schema = {
   'image_key': {'type': 'integer', 'required': True, 'nullable': False},
   'usno_band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
   'panstarr_band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
+  'v': {'type': 'float', 'required': True, 'nullable': False},
   'created_at': {'type': 'number', 'required': True, 'nullable': False}
 }
 
@@ -37,25 +38,20 @@ def generate_random_candidate():
   # Return candidate of expected dimensions
   return attrs
 
-def has_expected_dim(attrs):
+def has_expected_dim(candidate):
   '''
   Return true if candidate's attributes have expected dimensions, false otherwise
   '''
-  return has_expected_usno_dim(attrs.get('image_key'), attrs.get('usno_band')) and \
-    has_expected_panstarr_dim(attrs.get('image_key'), attrs.get('panstarr_band'))
+  return has_expected_usno_dim(candidate.get('image_key'), candidate.get('usno_band')) and \
+    has_expected_panstarr_dim(candidate.get('image_key'), candidate.get('panstarr_band'))
 
-def insert_candidate(v, attrs):
+def insert_candidate(attrs):
   '''
-  Attempt to insert a candidate in DB. Return candidate id if successful, throw an exception
+  Return candidate id of the inserted candidate in DB if successful, throw an exception
   with an array of errors otherwise
   '''
-  # Verify if candidate should be stored
-  theta = 15
-  if v >= theta: raise ValueError('v = {}, but it must be v < {}. Skipping potential candidate...'.format(v, theta))
-
-  # Candidate should be inserted if valid
-  validator = Validator(candidate_schema)
-  if validator.validate(attrs):
-    return candidates_collection.insert_one(validator.document).inserted_id
+  v = Validator(candidate_schema)
+  if v.validate(attrs):
+    return candidates_collection.insert_one(v.document).inserted_id
   else:
-    raise ValueError(validator.errors)
+    raise ValueError(v.errors)

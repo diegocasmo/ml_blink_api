@@ -8,7 +8,8 @@ def get_panstarr_vector(image_key, band):
   '''
   file_name = 'PanSTARR{}{}.jpg'.format(image_key, band)
   file_path = '{}/beta_images/PanSTARRS_ltd/{}'.format(APP_STATIC, file_name)
-  return np.asarray(Image.open(file_path)).flatten()
+  xs = np.asarray(Image.open(file_path)).flatten()
+  return xs/np.linalg.norm(xs, 2)
 
 def has_expected_panstarr_dim(image_key, band):
   '''
