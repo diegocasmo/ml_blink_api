@@ -1,8 +1,7 @@
-import time
 from random import randint
 from cerberus import Validator
-from ml_blink_api.utils.usno import get_usno_vector, has_expected_usno_dim
-from ml_blink_api.utils.panstarr import get_panstarr_vector, has_expected_panstarr_dim
+from ml_blink_api.utils.usno import has_expected_usno_dim
+from ml_blink_api.utils.panstarr import has_expected_panstarr_dim
 from ml_blink_api.utils.dataset_bands import datasets_bands
 from ml_blink_api.config.db import candidates_collection
 
@@ -11,8 +10,7 @@ candidate_schema = {
   'image_key': {'type': 'integer', 'required': True, 'nullable': False},
   'usno_band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
   'panstarr_band': {'type': 'string', 'required': True, 'empty': False, 'nullable': False},
-  'v': {'type': 'float', 'required': True, 'nullable': False},
-  'created_at': {'type': 'number', 'required': True, 'nullable': False}
+  'v': {'type': 'float', 'required': True, 'nullable': False}
 }
 
 def generate_random_candidate():
@@ -27,9 +25,9 @@ def generate_random_candidate():
     # Randomly generate a candidate
     attrs = {
       'image_key': randint(min_image_key, max_image_key),
-      'usno_band': datasets_bands[randint(0, len(datasets_bands) - 1)].get('USNO', 'blue1'),
-      'panstarr_band': datasets_bands[randint(0, len(datasets_bands) - 1)].get('PanSTARR', 'g'),
-      'created_at': int(round(time.time() * 1000))
+      # Temporarily only generate random candidates in 'blue1' (USNO) and 'g' (PanSTARR) bands
+      'usno_band': datasets_bands[0].get('USNO'),
+      'panstarr_band': datasets_bands[0].get('PanSTARR')
     }
 
     # Verify candidate has expected dimensions
@@ -50,6 +48,8 @@ def insert_candidate(attrs):
   Return candidate id of the inserted candidate in DB if successful, throw an exception
   with an array of errors otherwise
   '''
+  if not has_expected_dim(attrs): raise ValueError('Candidate {} has invalid dimensions'.format(attrs))
+
   v = Validator(candidate_schema)
   if v.validate(attrs):
     return candidates_collection.insert_one(v.document).inserted_id

@@ -1,9 +1,9 @@
-from flask import Blueprint, request, jsonify
 from cerberus import Validator
+from flask import Blueprint, request, jsonify
 from ml_blink_api.config.db import missions_collection
 from ml_blink_api.models.user import get_temp_test_user
 from ml_blink_api.models.mission import mission_schema
-from ml_blink_api.jobs.process_mission import tprocess_created_mission
+from ml_blink_api.utils.process_mission import process_created_mission
 from ml_blink_api.utils.http_status_code import (
   HTTP_200_OK, HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_500_INTERNAL_SERVER_ERROR
 )
@@ -19,14 +19,16 @@ def create():
   # Assume mission belongs to the temporary test user
   user = get_temp_test_user()
   if user:
+    attrs = request.get_json()
+    str_candidate_id = attrs.pop('candidate_id', None)
     # Validate mission attributes
     v = Validator(mission_schema)
-    if v.validate(request.get_json()):
+    if v.validate(attrs):
       # Insert valid mission in DB
       mission_id = missions_collection.insert_one(v.document).inserted_id
       if mission_id:
-        # Process mission details in the background
-        tprocess_created_mission.delay(str(mission_id))
+        # Process mission details
+        process_created_mission(mission_id, str_candidate_id)
         return jsonify({}), HTTP_201_CREATED
       else:
         return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR

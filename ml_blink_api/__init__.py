@@ -5,6 +5,7 @@ from json import JSONEncoder
 from flask import Flask
 from flask_cors import CORS
 from cerberus import Validator, TypeDefinition
+from ml_blink_api.resources.crawl.controllers import crawl
 from ml_blink_api.resources.users.controllers import users
 from ml_blink_api.resources.missions.controllers import missions
 from ml_blink_api.resources.comments.controllers import comments
@@ -30,6 +31,7 @@ app.secret_key = os.getenv('SECRET_KEY')
 CORS(app, origins=os.getenv('ORIGINS').split(','))
 
 # Register API endpoints using blueprint
+app.register_blueprint(crawl, url_prefix='/crawl')
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(missions, url_prefix='/missions')
 app.register_blueprint(comments, url_prefix='/comments')

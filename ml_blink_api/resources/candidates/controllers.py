@@ -11,9 +11,7 @@ def get_best_candidate():
   candidates = list(candidates_collection.find({}).sort('v', ASCENDING))
   if len(candidates) > 0:
     # Retrieve candidate with the lowest `v` of all
-    candidate = candidates[0]
-    candidates_collection.remove({'_id': candidate.get('_id')})
-    return jsonify(candidate), HTTP_200_OK
+    return jsonify(candidates[0]), HTTP_200_OK
   else:
     # If there's no candidate, pseudo-randomly generate one on the fly
     return jsonify(generate_random_candidate()), HTTP_200_OK
