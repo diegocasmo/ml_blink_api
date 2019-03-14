@@ -25,9 +25,8 @@ def generate_random_candidate():
     # Randomly generate a candidate
     attrs = {
       'image_key': randint(min_image_key, max_image_key),
-      # Temporarily only generate random candidates in 'blue1' (USNO) and 'g' (PanSTARR) bands
-      'usno_band': datasets_bands[0].get('USNO'),
-      'panstarr_band': datasets_bands[0].get('PanSTARR')
+      'usno_band': datasets_bands[randint(0, len(datasets_bands) - 1)].get('USNO', 'blue1'),
+      'panstarr_band': datasets_bands[randint(0, len(datasets_bands) - 1)].get('PanSTARR', 'g')
     }
 
     # Verify candidate has expected dimensions
