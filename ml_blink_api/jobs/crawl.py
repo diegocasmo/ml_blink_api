@@ -1,5 +1,9 @@
+import math
+import json
 import operator
 import numpy as np
+import multiprocessing
+from celery import chord
 from functools import reduce
 from ml_blink_api.config.celery_config import celery
 from ml_blink_api.utils.usno import get_usno_projection
@@ -30,8 +34,8 @@ def get_potential_candidates(m, bands):
   # Retrieve known anomalies to avoid crawling them again
   anomalies = list(anomalies_collection.aggregate([
     {'$match': {}},
-    {'$project': {'_id': 0, 'image_key': 1, 'usno_band': 1, 'panstarr_band': 1}}]
-  ))
+    {'$project': {'_id': 0, 'image_key': 1, 'usno_band': 1, 'panstarr_band': 1}}
+  ]))
   return list(filter(lambda x: x not in anomalies, potential_candidates))
 
 def get_s_id(s):
@@ -40,11 +44,15 @@ def get_s_id(s):
   '''
   return '{}.{}.{}'.format(s.get('image_key'), s.get('usno_band'), s.get('panstarr_band'))
 
-def compute_v(S):
+@celery.task(name='tcompute_v')
+def tcompute_v(S):
   '''
   Return a dictionary where keys represent `S` candidates encoded using their `s_id` and
   values their respective `v`
   '''
+  # Retrieve potential candidates in `S`
+  S = json.loads(S)
+
   # Retrieve active set
   A = list(active_set_collection.aggregate([
     {'$match': {}},
@@ -78,6 +86,28 @@ def compute_v(S):
       vs[s_id] = float('Inf')
   return vs
 
+@celery.task(name='thandle_compute_v_finished')
+def thandle_compute_v_finished(results, S):
+  '''
+  Create a candidate in DB given the result of each individual process computation
+  '''
+  try:
+    # Retrieve processes' results and `S`
+    S = json.loads(S)
+    vs = reduce(lambda acc, x: acc.update(x) or acc, results, {})
+
+    # Find minimum `v` value and `s_id`
+    vm = min(vs.values())
+    vm_s_id = next(s_id for s_id in vs if vs[s_id] == vm)
+
+    # Extend candidate with its `v` value
+    attrs = next(s for s in S if get_s_id(s) == vm_s_id)
+    attrs['v'] = vm
+    candidate_id = insert_candidate(attrs)
+    log_info('[vm_s_id vm id]: [{} {} {}]'.format(vm_s_id, vm, candidate_id))
+  except Exception as e:
+    log_error('Unable to insert candidate in DB: {}'.format(e))
+
 @celery.task(name='tcrawl_candidates')
 def tcrawl_candidates():
   '''
@@ -89,17 +119,23 @@ def tcrawl_candidates():
     m = 1001
     S = get_potential_candidates(m, datasets_bands)
 
-    # Compute the `v` value for each potential candidate in `S`
-    vs = compute_v(S)
+    # Define processes' chunk size
+    num_processes = multiprocessing.cpu_count()
+    chunk_size = math.floor(len(S)/num_processes)
 
-    # Find minimum `v` value and `s_id`
-    vm = min(vs.values())
-    vm_s_id = next(s_id for s_id in vs if vs[s_id] == vm)
+    # Create `num_processes` parallel tasks
+    tasks = [
+      tcompute_v.s(
+        json.dumps(
+          S[(chunk_size * i):(len(S) if i == num_processes - 1 else chunk_size * (i + 1))],
+        )
+      ) for i in range(num_processes)
+    ]
 
-    # Extend candidate with its `v` value
-    attrs = next(s for s in S if get_s_id(s) == vm_s_id)
-    attrs['v'] = vm
-    candidate_id = insert_candidate(attrs)
-    log_info('[vm_s_id vm id]: [{} {} {}]'.format(vm_s_id, vm, candidate_id))
+    # Define callback to execute when all parallel tasks are finished
+    callback = thandle_compute_v_finished.s(json.dumps(S))
+
+    # Execute chord in the background
+    chord((tasks), callback).delay()
   except Exception as e:
     log_error('Unable to crawl candidates: {}'.format(e))

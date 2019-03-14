@@ -15,14 +15,9 @@ def get():
   return render_template('crawler/crawl.html',
     task_id = task.id)
 
-@crawl.route('/status/<task_id>', methods=['GET'])
-def status(task_id):
-  # Retrieve task's status
-  task = AsyncResult(task_id)
-
-  return render_template('crawler/status.html',
-    task_status = task.status,
-    task_id = task_id,
+@crawl.route('details', methods=['GET'])
+def details():
+  return render_template('crawler/details.html',
     active_set = list(active_set_collection.find()),
     candidates = list(candidates_collection.find()),
     anomalies = list(anomalies_collection.find()))
