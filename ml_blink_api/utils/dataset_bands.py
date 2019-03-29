@@ -2,8 +2,7 @@
 datasets_bands = [
   {'USNO': 'blue1', 'PanSTARR': 'g'},
   {'USNO': 'blue2', 'PanSTARR': 'g'},
-  # USNO images in band 'red1' seem to all have incorrect dimensions?
-  # {'USNO': 'red1', 'PanSTARR': 'r'},
+  {'USNO': 'red1', 'PanSTARR': 'r'},
   {'USNO': 'red2', 'PanSTARR': 'r'},
   {'USNO': 'ir', 'PanSTARR': 'z'}
 ]
