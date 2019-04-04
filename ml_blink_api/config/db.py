@@ -13,4 +13,4 @@ missions_collection = db.missions
 users_collection = db.users
 candidates_collection = db.candidates
 active_set_collection = db.active_set
-anomalies_collection = db.anomalies
+potential_anomalies_collection = db.potential_anomalies

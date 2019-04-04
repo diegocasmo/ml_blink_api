@@ -11,4 +11,5 @@ def normalize(xs):
   '''
   Return a normalize vector using the L2-norm
   '''
-  return xs/l2_norm(xs)
+  norm = l2_norm(xs)
+  return xs/norm

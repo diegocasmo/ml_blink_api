@@ -4,7 +4,7 @@ from ml_blink_api.jobs.crawl import tcrawl_candidates
 from ml_blink_api.utils.usno import get_usno_projection
 from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.config.db import (
-  active_set_collection, candidates_collection, missions_collection, anomalies_collection
+  active_set_collection, candidates_collection, missions_collection, potential_anomalies_collection
 )
 
 crawl = Blueprint('crawl', __name__)
@@ -20,7 +20,7 @@ def details():
   return render_template('crawler/details.html',
     active_set = list(active_set_collection.find()),
     candidates = list(candidates_collection.find()),
-    anomalies = list(anomalies_collection.find()))
+    potential_anomalies = list(potential_anomalies_collection.find()))
 
 @crawl.route('/clear', methods=['GET'])
 def clear():
@@ -28,7 +28,7 @@ def clear():
     num_active_set_removed = active_set_collection.remove({})['n'],
     num_candidates_removed = candidates_collection.remove({})['n'],
     num_missions_removed = missions_collection.remove({})['n'],
-    num_anomalies_removed = anomalies_collection.remove({})['n'])
+    num_potential_anomalies_removed = potential_anomalies_collection.remove({})['n'])
 
 @crawl.route('/setup', methods=['GET'])
 def setup():
@@ -61,4 +61,4 @@ def setup():
   return render_template('crawler/details.html',
     active_set = list(active_set_collection.find()),
     candidates = list(candidates_collection.find()),
-    anomalies = list(anomalies_collection.find()))
+    potential_anomalies = list(potential_anomalies_collection.find()))

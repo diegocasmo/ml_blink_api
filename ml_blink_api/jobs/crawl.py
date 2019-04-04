@@ -11,13 +11,14 @@ from ml_blink_api.models.candidate import insert_candidate
 from ml_blink_api.utils.dataset_bands import datasets_bands
 from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
-from ml_blink_api.config.db import active_set_collection, anomalies_collection, candidates_collection
+from ml_blink_api.config.db import (
+  active_set_collection, potential_anomalies_collection, candidates_collection
+)
 
-def get_potential_candidates(m, bands):
+def get_potential_candidates(image_keys, bands):
   '''
-  Generate candidates for each element in m. Note this only uses the 'blue1' (USNO)
-  and 'g' (PanSTARR) bands since the fake generated images are all equal across all
-  the bands
+  Generate potential candidates for each image key, ignoring those that have
+  already been tagged as potential anomalies
   '''
   potential_candidates = reduce(operator.concat, [
     [
@@ -28,15 +29,15 @@ def get_potential_candidates(m, bands):
       }
       for j in range(len(bands))
     ]
-    for i in range(m)
+    for i in image_keys
   ])
 
-  # Retrieve known anomalies to avoid crawling them again
-  anomalies = list(anomalies_collection.aggregate([
+  # Retrieve known potential anomalies to avoid crawling them again
+  potential_anomalies = list(potential_anomalies_collection.aggregate([
     {'$match': {}},
     {'$project': {'_id': 0, 'image_key': 1, 'usno_band': 1, 'panstarr_band': 1}}
   ]))
-  return list(filter(lambda x: x not in anomalies, potential_candidates))
+  return list(filter(lambda x: x not in potential_anomalies, potential_candidates))
 
 def get_s_id(s):
   '''
@@ -117,7 +118,7 @@ def tcrawl_candidates():
   try:
     # Generate candidates that will be crawled
     m = 1001
-    S = get_potential_candidates(m, datasets_bands)
+    S = get_potential_candidates(range(m), datasets_bands)
 
     # Define processes' chunk size
     num_processes = multiprocessing.cpu_count()

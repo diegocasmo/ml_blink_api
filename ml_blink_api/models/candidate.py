@@ -54,3 +54,13 @@ def insert_candidate(attrs):
     return candidates_collection.insert_one(v.document).inserted_id
   else:
     raise ValueError(v.errors)
+
+def get_candidate_from_mission(mission):
+  '''
+  Return candidate attributes from a mission model
+  '''
+  return {
+    'image_key': mission.get('image_key'),
+    'usno_band': mission.get('image_one').get('band'),
+    'panstarr_band': mission.get('image_two').get('band')
+  }

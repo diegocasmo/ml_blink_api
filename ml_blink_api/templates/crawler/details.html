@@ -26,17 +26,17 @@
   <h4>There are no candidates stored DB</h4>
 {% endif %}
 
-{% if anomalies|length > 0 %}
-  <h4>Anomalies stored DB:</h4>
+{% if potential_anomalies|length > 0 %}
+  <h4>Potential anomalies stored DB:</h4>
   <ol>
-    {% for x in anomalies %}
+    {% for x in potential_anomalies %}
       <li>
         Image key: {{ x['image_key'] }}, USNO band: {{ x['usno_band'] }}, PanSTARR band: {{ x['panstarr_band'] }}
       </li>
     {% endfor %}
   </ol>
 {% else %}
-  <h4>There are no anomalies stored DB</h4>
+  <h4>There are no potential anomalies stored DB</h4>
 {% endif %}
 
 <a href='/crawl'>Crawl</a><br/><br/>

@@ -20,16 +20,14 @@ def create():
   # Assume mission belongs to the temporary test user
   user = get_temp_test_user()
   if user:
-    # Validate mission attributes
+    # Validate mission's attributes
     v = Validator(mission_schema)
     if v.validate(request.get_json().get('mission', {})):
-      # Insert valid mission in DB and process its details in the background if successful
+      # Insert valid mission in DB
       mission_id = missions_collection.insert_one(v.document).inserted_id
       if mission_id:
-        tprocess_created_mission.delay(
-          str(mission_id),
-          json.dumps(request.get_json().get('candidate', {}))
-        )
+        # Process created mission in the background
+        tprocess_created_mission.delay(str(mission_id))
         return jsonify({}), HTTP_201_CREATED
       else:
         return jsonify({}), HTTP_500_INTERNAL_SERVER_ERROR
