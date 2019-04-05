@@ -1,3 +1,4 @@
+import random
 from pymongo import ASCENDING
 from flask import Blueprint, request, jsonify
 from ml_blink_api.config.db import candidates_collection
@@ -18,9 +19,14 @@ def get_best_candidate():
 
   candidates = list(candidates_collection.find(query).sort('v', ASCENDING))
   if len(candidates) > 0:
-    # Remove candidate with the lowest `v` from DB before sending response
-    candidates_collection.remove({'_id': candidates[0].get('_id')})
-    return jsonify(candidates[0]), HTTP_200_OK
+    # Select candidate with lowest `v`
+    lowest_v = candidates[0].get('v')
+    # If there are multiple with same lowest `v` value, randomly select one of those
+    candidate = random.choice([c for c in candidates if c.get('v') == lowest_v])
+    # Remove selected candidate
+    candidates_collection.remove({'_id': candidate.get('_id')})
+
+    return jsonify(candidate), HTTP_200_OK
   else:
     # If there's no candidate, pseudo-randomly generate one on the fly
     return jsonify(generate_random_candidate()), HTTP_200_OK
