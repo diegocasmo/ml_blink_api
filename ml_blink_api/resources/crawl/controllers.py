@@ -22,14 +22,6 @@ def details():
     candidates = list(candidates_collection.find()),
     potential_anomalies = list(potential_anomalies_collection.find()))
 
-@crawl.route('/clear', methods=['GET'])
-def clear():
-  return render_template('crawler/clear.html',
-    num_active_set_removed = active_set_collection.remove({})['n'],
-    num_candidates_removed = candidates_collection.remove({})['n'],
-    num_missions_removed = missions_collection.remove({})['n'],
-    num_potential_anomalies_removed = potential_anomalies_collection.remove({})['n'])
-
 @crawl.route('/setup', methods=['GET'])
 def setup():
   # Define candidates to be inserted in active set
