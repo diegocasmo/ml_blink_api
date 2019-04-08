@@ -247,15 +247,17 @@ CELERYD_PID_FILE="/var/run/celery/%n.pid"
 CELERYD_LOG_FILE="/var/log/celery/%n%I.log"
 CELERYD_LOG_LEVEL="INFO"
 ```
-  - Create log and pid directories with `systemd-tmpfiles` in `/etc/tmpfiles.d/celery.conf`:
+  - Create log and pid directories:
 ``` bash
-d /var/run/celery 0755 root root -
-d /var/log/celery 0755 root root -
+sudo mkdir /var/log/celery /var/run/celery
 ```
   - Reload `systemctl` daemon by running `sudo systemctl daemon-reload`
   - Enable the service to startup at boot: `sudo systemctl enable celeryd`
   - Start the service `sudo systemctl start celeryd`
-  - Check that the worker is running correctly: `cat /var/log/celery/w1.log`
+  - Verify the worker correctly setup by running the following commands:
+    - `systemctl status celeryd.service`
+    - `journalctl -xe`
+    - `cat /var/log/celery/w1.log`
 
 ### Access the API
   - You have successfully deployed a flask application! You should be able to access it at `http://<Floating IP>`
