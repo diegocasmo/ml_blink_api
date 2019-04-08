@@ -1,5 +1,6 @@
 from bson import ObjectId
 from ml_blink_api.config.celery_config import celery
+from ml_blink_api.jobs.crawl import tcrawl_candidates
 from ml_blink_api.utils.usno import get_usno_projection
 from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
@@ -29,6 +30,9 @@ def tprocess_created_mission(str_mission_id):
         attrs['panstarr_vector'] = get_panstarr_projection(attrs.get('image_key'), attrs.get('panstarr_band')).tolist()
         member_id = active_set_collection.insert_one(attrs).inserted_id
         log_info('Inserted member with id {} in active set'.format(member_id))
+        # Run crawler as a new member has been inserted in the active set
+        task = tcrawl_candidates.delay()
+        log_info('Created crawl task with id: {}'.format(task.id))
       else:
         potential_anomaly_id = potential_anomalies_collection.insert_one(attrs).inserted_id
         log_info('Inserted potential anomaly with id {} in DB'.format(potential_anomaly_id))
