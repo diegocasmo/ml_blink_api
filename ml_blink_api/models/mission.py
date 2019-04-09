@@ -34,3 +34,29 @@ mission_schema = {
   'image_two': image_schema,
   'created_at': {'type': 'number', 'required': True, 'nullable': False}
 }
+
+def matching_has_overlap(mission):
+  '''
+  Return true if a mission's matching images overlap (one is placed on top of the
+  other), false otherwise
+  '''
+  img_1 = mission.get('image_one').get('transformations')
+  img_2 = mission.get('image_two').get('transformations')
+
+  # Retrieve images' coordinates
+  x1 = img_1.get('x')
+  y1 = img_1.get('y')
+  x2 = img_2.get('x')
+  y2 = img_2.get('y')
+
+  # Compute `x` and `y` coordinate end points for each image
+  x1_end = x1 + (img_1.get('width') * img_1.get('scale_x'))
+  y1_end = y1 + (img_1.get('height') * img_1.get('scale_y'))
+  x2_end = x2 + (img_2.get('width') * img_2.get('scale_x'))
+  y2_end = y2 + (img_2.get('height') * img_2.get('scale_y'))
+
+  # Verify if there's overlap in each coordinate
+  x_overlap = (x1 <= x2 and x2 <= x1_end) or (x2 < x1 and x2_end >= x1)
+  y_overlap = (y1 <= y2 and y2 <= y1_end) or (y2 < y1 and y2_end >= y1)
+
+  return x_overlap and y_overlap
