@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    <li>Image key: {{ potential_anomaly['image_key'] }}</li>
+    <li>USNO band: {{ potential_anomaly['usno_band'] }}</li>
+    <li>PanSTARR band: {{ potential_anomaly['panstarr_band'] }}</li>
+  </ul>
+
+  <ul class='list-inline'>
+    <li class='list-inline-item'>
+      <p>USNO image:</p>
+      <div class='border border-dark'>
+        <img width='400' height='400' src="/static/beta_images/USNO1001/USNO{{ potential_anomaly['image_key'] }}{{ potential_anomaly['usno_band'] }}.gif"/>
+    </div>
+    </li>
+    <li class='list-inline-item'>
+      <p>PanSTARR image:</p>
+      <div class='border border-dark'>
+        <img width='400' height='400' src="/static/beta_images/PanSTARRS_ltd/PanSTARR{{ potential_anomaly['image_key'] }}{{ potential_anomaly['panstarr_band'] }}.jpg"/>
+    </div>
+    </li>
+  </ul>
+
+  <form action='/potential_anomalies/delete' method='POST'>
+    <input type='hidden' name='potential_anomaly_id' value="{{ potential_anomaly['_id'] }}"/>
+    <button onclick="return confirm('Are you sure you want to delete this anomaly?')" type='submit' class='btn btn-danger'>Delete</button>
+  </form>
+
+{% endblock %}

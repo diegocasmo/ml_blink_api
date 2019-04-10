@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a href='/crawl'>
+    <button type='button' class='btn btn-primary mb-3'>Refresh</button>
+  </a>
+
+  {% if candidates|length > 0 %}
+    <h4>Candidates stored DB:</h4>
+    <ol>
+      {% for x in candidates %}
+        <li>
+          Image key: {{ x['image_key'] }}, USNO band: {{ x['usno_band'] }}, PanSTARR band: {{ x['panstarr_band'] }}, v: {{ x['v'] }}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <h4>There are no candidates stored DB</h4>
+  {% endif %}
+
+  <hr/>
+
+  {% if active_set|length > 0 %}
+    <h4>Active set members stored in DB:</h4>
+    <ol>
+      {% for x in active_set %}
+        <li>
+          Image key: {{ x['image_key'] }}, USNO band: {{ x['usno_band'] }}, PanSTARR band: {{ x['panstarr_band'] }}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <h4>There are no active set members stored in DB</h4>
+  {% endif %}
+{% endblock %}

@@ -5,9 +5,9 @@ from ml_blink_api.config.db import (
 
 crawl = Blueprint('crawl', __name__)
 
-@crawl.route('details', methods=['GET'])
-def details():
-  return render_template('crawler/details.html',
+@crawl.route('', methods=['GET'])
+def index():
+  return render_template('crawl/index.html',
     active_set = list(active_set_collection.find()),
     candidates = list(candidates_collection.find()),
     potential_anomalies = list(potential_anomalies_collection.find()))
