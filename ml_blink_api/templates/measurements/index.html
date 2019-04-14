@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if curr_time_steps == 0 or curr_time_steps == max_time_steps %}
+    {% include 'measurements/_form.html' %}
+  {% endif %}
+
+  <div class='row'>
+    <div class='col-sm-8'>
+      {% include 'anomalies/_list.html' %}
+      {% include 'active_set/_list.html' %}
+    </div>
+    <div class='col-sm-4'>
+      <h4>Time steps</h4>
+      <p>{{ curr_time_steps }}/{{ max_time_steps }}</p>
+    </div>
+  </div>
+
+{% endblock %}

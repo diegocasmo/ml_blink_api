@@ -14,3 +14,5 @@ users_collection = db.users
 candidates_collection = db.candidates
 active_set_collection = db.active_set
 potential_anomalies_collection = db.potential_anomalies
+anomalies_collection = db.anomalies
+time_steps_collection = db.time_steps
