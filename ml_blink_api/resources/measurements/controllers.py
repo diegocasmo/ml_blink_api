@@ -12,7 +12,8 @@ def index():
     max_time_steps = MAX_TIME_STEPS,
     curr_time_steps = last_time_step.get('count') if last_time_step else 0,
     anomalies = list(anomalies_collection.find()),
-    active_set = list(active_set_collection.find())
+    active_set = list(active_set_collection.find()),
+    active_set_delimeter = 25
   )
 
 @measurements.route('', methods=['POST'])
