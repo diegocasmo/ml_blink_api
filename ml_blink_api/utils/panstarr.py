@@ -13,7 +13,7 @@ def get_panstarr_vector(image_key, band):
   file_path = '{}/beta_images/PanSTARRS_ltd/{}'.format(APP_STATIC, file_name)
   return np.asarray(Image.open(file_path)).flatten()
 
-def get_panstarr_projection(image_key, band, num_proj = 2000):
+def get_panstarr_projection(image_key, band, num_proj = 4000):
   '''
   Return a normalized PanSTARRs vector with its dimensionality reduced to `num_proj`
   '''
