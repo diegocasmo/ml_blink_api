@@ -1,6 +1,6 @@
 {% if candidates|length > 0 %}
   <h4>Candidates stored DB:</h4>
-  <ol>
+  <ol start='0'>
     {% for x in candidates %}
       <li>
         Image key: {{ x['image_key'] }}, USNO band: {{ x['usno_band'] }}, PanSTARR band: {{ x['panstarr_band'] }}, v: {{ x['v'] }}

@@ -17,7 +17,7 @@
 
       <h5>Active set samples (every {{ active_set_delimeter }}):</h5>
       {% if active_set|length > 0 %}
-        <ol class='p-0 text-right'>
+        <div class='p-0 text-right'>
           {% for x in active_set %}
             {% if (loop.index - 1) % active_set_delimeter == 0 %}
               <ul class='list-inline mb-2'>
@@ -31,7 +31,7 @@
               </ul>
             {% endif %}
           {% endfor %}
-        </ol>
+        </div>
       {% endif %}
 
     </div>
