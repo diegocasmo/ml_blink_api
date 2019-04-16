@@ -14,7 +14,7 @@ from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
 from ml_blink_api.config.db import active_set_collection, anomalies_collection, time_steps_collection
 
-MAX_TIME_STEPS = 400
+MAX_TIME_STEPS = 1000
 
 ANOMALIES = [{
   'image_key': 13,
