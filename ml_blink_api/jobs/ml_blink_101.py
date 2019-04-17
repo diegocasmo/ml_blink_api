@@ -12,9 +12,12 @@ from ml_blink_api.models.candidate import insert_candidate
 from ml_blink_api.utils.dataset_bands import datasets_bands
 from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
-from ml_blink_api.config.db import active_set_collection, anomalies_collection, time_steps_collection
+from ml_blink_api.config.db import db
 
-MAX_TIME_STEPS = 1000
+MAX_TIME_STEPS = 5
+MIN_PROJECTIONS = 10
+MAX_PROJECTIONS = 30
+EXPONENT = 1.4
 
 ANOMALIES = [{
   'image_key': 13,
@@ -34,7 +37,7 @@ ANOMALIES = [{
   'panstarr_band': 'g'
 }]
 
-def get_potential_candidates(image_keys, bands):
+def get_potential_candidates(image_keys, bands, num_projections):
   '''
   Generate potential candidates for each image key, ignoring those that have
   already been tagged as anomalies
@@ -52,7 +55,7 @@ def get_potential_candidates(image_keys, bands):
   ])
 
   # Retrieve known anomalies to avoid crawling them again
-  anomalies = list(anomalies_collection.aggregate([
+  anomalies = list(db['anomalies_{}'.format(num_projections)].aggregate([
     {'$match': {}},
     {'$project': {'_id': 0, 'image_key': 1, 'usno_band': 1, 'panstarr_band': 1}}
   ]))
@@ -64,18 +67,18 @@ def get_s_id(s):
   '''
   return '{}.{}.{}'.format(s.get('image_key'), s.get('usno_band'), s.get('panstarr_band'))
 
-def increment_time_step():
+def increment_time_step(num_projections):
   '''
   Increment steps + 1
   '''
-  if time_steps_collection.find().count() == 0:
-    time_steps_collection.insert_one({'count': 1})
+  if db['time_steps_{}'.format(num_projections)].find().count() == 0:
+    db['time_steps_{}'.format(num_projections)].insert_one({'count': 1})
   else:
-    last_time_step = time_steps_collection.find_one({}, sort=[('_id', DESCENDING)])
-    time_steps_collection.insert_one({'count': last_time_step.get('count') + 1})
+    last_time_step = db['time_steps_{}'.format(num_projections)].find_one({}, sort=[('_id', DESCENDING)])
+    db['time_steps_{}'.format(num_projections)].insert_one({'count': last_time_step.get('count') + 1})
 
 @celery.task(name='ml_blink_101_tcompute_v')
-def ml_blink_101_tcompute_v(S):
+def ml_blink_101_tcompute_v(S, num_projections):
   '''
   Return a dictionary where keys represent `S` candidates encoded using their `s_id` and
   values their respective `v`
@@ -84,7 +87,7 @@ def ml_blink_101_tcompute_v(S):
   S = json.loads(S)
 
   # Retrieve active set
-  A = list(active_set_collection.aggregate([
+  A = list(db['active_set_{}'.format(num_projections)].aggregate([
     {'$match': {}},
     {'$project': {'_id': 0, 'usno_vector': 1, 'panstarr_vector': 1}}
   ]))
@@ -98,8 +101,8 @@ def ml_blink_101_tcompute_v(S):
       vs[s_id] = 0
 
       # Retrieve potential candidate's projections
-      x = get_usno_projection(s.get('image_key'), s.get('usno_band'))
-      y = get_panstarr_projection(s.get('image_key'), s.get('panstarr_band'))
+      x = get_usno_projection(s.get('image_key'), s.get('usno_band'), num_projections)
+      y = get_panstarr_projection(s.get('image_key'), s.get('panstarr_band'), num_projections)
 
       # Compute `v` using the members of the active set
       for member in A:
@@ -117,7 +120,7 @@ def ml_blink_101_tcompute_v(S):
   return vs
 
 @celery.task(name='ml_blink_101_thandle_compute_v_finished')
-def ml_blink_101_thandle_compute_v_finished(results, S):
+def ml_blink_101_thandle_compute_v_finished(results, S, num_projections):
   '''
   Create a candidate in DB given the result of each individual process computation
   '''
@@ -133,38 +136,46 @@ def ml_blink_101_thandle_compute_v_finished(results, S):
     # Remove anomaly from S if found, add to the active set otherwise
     attrs = next(s for s in S if get_s_id(s) == vm_s_id)
     if attrs in ANOMALIES:
-      anomaly_id = anomalies_collection.insert_one(attrs).inserted_id
+      anomaly_id = db['anomalies_{}'.format(num_projections)].insert_one(attrs).inserted_id
       log_info('Inserted anomaly with id {} in the anomalies collection'.format(anomaly_id))
     else:
       # Extend candidate with its `v` value
       attrs['v'] = vm
-      attrs['usno_vector'] = get_usno_projection(attrs.get('image_key'), attrs.get('usno_band')).tolist()
-      attrs['panstarr_vector'] = get_panstarr_projection(attrs.get('image_key'), attrs.get('panstarr_band')).tolist()
-      member_id = active_set_collection.insert_one(attrs).inserted_id
+      attrs['usno_vector'] = get_usno_projection(attrs.get('image_key'), attrs.get('usno_band'), num_projections).tolist()
+      attrs['panstarr_vector'] = get_panstarr_projection(attrs.get('image_key'), attrs.get('panstarr_band'), num_projections).tolist()
+      member_id = db['active_set_{}'.format(num_projections)].insert_one(attrs).inserted_id
       log_info('Inserted member with id {} in active set'.format(member_id))
 
     # Keep crawling until we have reached the max number of time-steps
-    last_time_step = time_steps_collection.find_one({}, sort=[('_id', DESCENDING)])
+    last_time_step = db['time_steps_{}'.format(num_projections)].find_one({}, sort=[('_id', DESCENDING)])
     if last_time_step.get('count') < MAX_TIME_STEPS:
-      ml_blink_101_tcrawl_candidates.delay()
+      ml_blink_101_tcrawl_candidates.delay(num_projections)
+    else:
+      # Increment number of projections exponentially
+      num_projections = math.floor(math.pow(num_projections, EXPONENT))
+      if num_projections < MAX_PROJECTIONS:
+        ml_blink_101_tcrawl_candidates.delay(num_projections)
+
   except Exception as e:
     log_error('Unable to insert candidate in DB: {}'.format(e))
 
 @celery.task(name='ml_blink_101_tcrawl_candidates')
-def ml_blink_101_tcrawl_candidates():
+def ml_blink_101_tcrawl_candidates(num_projections = MIN_PROJECTIONS):
   '''
   Crawl potential candidates in `m` and add the one with the lowest `v` value to the
   candidates collection
   '''
   try:
     # Update current time step
-    increment_time_step()
+    increment_time_step(num_projections)
 
     # Generate candidates that will be crawled
-    m = 1001
-    S = get_potential_candidates(range(m), datasets_bands)
+    # m = 1001
+    m = 10
+    S = get_potential_candidates(range(m), datasets_bands, num_projections)
 
     log_info('Crawling {} potential candidates'.format(len(S)))
+    log_info('Using {} projections'.format(num_projections))
 
     # Define processes' chunk size
     num_processes = multiprocessing.cpu_count()
@@ -175,12 +186,13 @@ def ml_blink_101_tcrawl_candidates():
       ml_blink_101_tcompute_v.s(
         json.dumps(
           S[(chunk_size * i):(len(S) if i == num_processes - 1 else chunk_size * (i + 1))],
-        )
+        ),
+        num_projections
       ) for i in range(num_processes)
     ]
 
     # Define callback to execute when all parallel tasks are finished
-    callback = ml_blink_101_thandle_compute_v_finished.s(json.dumps(S))
+    callback = ml_blink_101_thandle_compute_v_finished.s(json.dumps(S), num_projections)
 
     # Execute chord in the background
     chord((tasks), callback).delay()

@@ -2,41 +2,8 @@
 
 {% block content %}
 
-<!--   {% if curr_time_steps == 0 or curr_time_steps == max_time_steps %}
+  {% if curr_time_steps == 0 or curr_time_steps == max_time_steps %}
     {% include 'measurements/_form.html' %}
   {% endif %}
- -->
-<!--   <div class='row'>
-    <div class='col-sm-8'>
-      {% include 'anomalies/_list.html' %}
-      {% include 'active_set/_list.html' %}
-    </div>
-    <div class='col-sm-4'>
-      <h4>Time steps</h4>
-      <p>{{ curr_time_steps }}/{{ max_time_steps }}</p>
-
-      <h5>Active set samples (every {{ active_set_delimeter }}):</h5>
-      {% if active_set|length > 0 %}
-        <div class='p-0 text-right'>
-          {% for x in active_set %}
-            {% if (loop.index - 1) % active_set_delimeter == 0 %}
-              <ul class='list-inline mb-2'>
-                <li class='list-inline-item'>{{ (loop.index - 1) }}.</li>
-                <li class='list-inline-item'>
-                  <img class='border border-dark' width='100' height='100' src="/static/beta_images/USNO1001/USNO{{ x['image_key'] }}{{ x['usno_band'] }}.gif"/>
-                </li>
-                  <img class='border border-dark' width='100' height='100' src="/static/beta_images/PanSTARRS_ltd/PanSTARR{{ x['image_key'] }}{{ x['panstarr_band'] }}.jpg"/>
-                <li class='list-inline-item'>
-                </li>
-              </ul>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-    </div>
-  </div> -->
-
-  {% include 'measurements/_list.html' %}
 
 {% endblock %}
