@@ -2,9 +2,7 @@
 
 {% block content %}
 
-  {% if curr_time_steps == 0 or curr_time_steps == max_time_steps %}
-    {% include 'measurements/_form.html' %}
-  {% endif %}
+  {% include 'measurements/_form.html' %}
 
   <table class='table table-bordered'>
   <thead>
@@ -23,7 +21,7 @@
       <tr>
         <td class='p-2'>
           <div style='width: 150px;' class='text-right'>
-            <p class='m-0'>Projections: {{ x['num_projections'] }} </p>
+            <p class='m-0'>Projections: {{ x['num_proj'] }} </p>
             <p class='m-0'>Anomalies found: {{ x['anomalies'] }} </p>
             <p class='m-0'>Time steps: {{ x['time_steps'] }} </p>
           </div>
@@ -31,7 +29,7 @@
         {% for y in x['active_set'] %}
           {% if (loop.index - 1) % delimiter == 0 %}
             <td class='text-center p-2'>
-              <div style='width: 160px;'>
+              <div style='width: 160px;' class='text-center m-auto'>
                 <img class='border border-dark' width='75' height='75' src="/static/beta_images/USNO1001/USNO{{ y['image_key'] }}{{ y['usno_band'] }}.gif"/>
                 <img class='border border-dark' width='75' height='75' src="/static/beta_images/PanSTARRS_ltd/PanSTARR{{ y['image_key'] }}{{ y['panstarr_band'] }}.jpg"/>
                 <p class='text-center m-0'>{{ y['image_key'] }}</p>
