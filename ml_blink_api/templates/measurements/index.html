@@ -6,4 +6,41 @@
     {% include 'measurements/_form.html' %}
   {% endif %}
 
+  <table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th class='text-center' scope='col'>Setup</th>
+      {% if all_measurements|length > 0 %}
+        {% for y in all_measurements[0]['active_set'] %}
+          {% if (loop.index - 1) % delimiter == 0 %}
+            <th class='text-center' scope='col'>t={{ loop.index - 1 }}</th>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </tr>
+  </thead>
+    {% for x in all_measurements %}
+      <tr>
+        <td class='p-2'>
+          <div style='width: 150px;' class='text-right'>
+            <p class='m-0'>Projections: {{ x['num_projections'] }} </p>
+            <p class='m-0'>Anomalies found: {{ x['anomalies'] }} </p>
+            <p class='m-0'>Time steps: {{ x['time_steps'] }} </p>
+          </div>
+        </td>
+        {% for y in x['active_set'] %}
+          {% if (loop.index - 1) % delimiter == 0 %}
+            <td class='text-center p-2'>
+              <div style='width: 160px;'>
+                <img class='border border-dark' width='75' height='75' src="/static/beta_images/USNO1001/USNO{{ y['image_key'] }}{{ y['usno_band'] }}.gif"/>
+                <img class='border border-dark' width='75' height='75' src="/static/beta_images/PanSTARRS_ltd/PanSTARR{{ y['image_key'] }}{{ y['panstarr_band'] }}.jpg"/>
+                <p class='text-center m-0'>Image key: {{ y['image_key'] }}</p>
+              </div>
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+
 {% endblock %}

@@ -14,10 +14,10 @@ from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
 from ml_blink_api.config.db import db
 
-MAX_TIME_STEPS = 5
+MAX_TIME_STEPS = 250
 MIN_PROJECTIONS = 10
-MAX_PROJECTIONS = 30
-EXPONENT = 1.4
+MAX_PROJECTIONS = 10000
+EXPONENT = 1.15
 
 ANOMALIES = [{
   'image_key': 13,
@@ -148,7 +148,7 @@ def ml_blink_101_thandle_compute_v_finished(results, S, num_projections):
 
     # Keep crawling until we have reached the max number of time-steps
     last_time_step = db['time_steps_{}'.format(num_projections)].find_one({}, sort=[('_id', DESCENDING)])
-    if last_time_step.get('count') < MAX_TIME_STEPS:
+    if last_time_step.get('count') <= MAX_TIME_STEPS:
       ml_blink_101_tcrawl_candidates.delay(num_projections)
     else:
       # Increment number of projections exponentially
@@ -170,8 +170,7 @@ def ml_blink_101_tcrawl_candidates(num_projections = MIN_PROJECTIONS):
     increment_time_step(num_projections)
 
     # Generate candidates that will be crawled
-    # m = 1001
-    m = 10
+    m = 1001
     S = get_potential_candidates(range(m), datasets_bands, num_projections)
 
     log_info('Crawling {} potential candidates'.format(len(S)))

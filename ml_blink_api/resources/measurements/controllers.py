@@ -10,7 +10,24 @@ measurements = Blueprint('measurements', __name__)
 
 @measurements.route('', methods=['GET'])
 def index():
-  return render_template('measurements/index.html')
+  all_measurements = []
+  num_projections = MIN_PROJECTIONS
+  while num_projections < MAX_PROJECTIONS:
+    all_measurements.append({
+      'num_projections': num_projections,
+      'anomalies': db['anomalies_{}'.format(num_projections)].find().count(),
+      'active_set_size': db['active_set_{}'.format(num_projections)].find().count(),
+      'time_steps': db['time_steps_{}'.format(num_projections)].find().count(),
+      'active_set': list(db['active_set_{}'.format(num_projections)].aggregate([
+        {'$match': {}},
+        {'$project': {'_id': 0, 'image_key': 1, 'usno_band': 1, 'panstarr_band': 1, 'v': 1}}
+      ]))
+    })
+    num_projections = math.floor(math.pow(num_projections, EXPONENT))
+  return render_template('measurements/index.html',
+    all_measurements = all_measurements,
+    delimiter = 20
+  )
 
 @measurements.route('', methods=['POST'])
 def new():
