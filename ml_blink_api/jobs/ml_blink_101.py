@@ -15,7 +15,8 @@ from ml_blink_api.utils.celery_logger import log_info, log_error
 from ml_blink_api.config.db import db
 
 MAX_TIME_STEPS = 201
-NUM_PROJ = [10, 20, 50, 100, 200, 500, 1000, 2500, 5000, 7500, 10000]
+# 10, 20, 50, 100, 200, 500, 1000, 2500, 5000,
+NUM_PROJ = [7500, 10000]
 
 ANOMALIES = [{
   'image_key': 13,
@@ -127,22 +128,34 @@ def ml_blink_101_thandle_compute_v_finished(results, S, num_proj):
     S = json.loads(S)
     vs = reduce(lambda acc, x: acc.update(x) or acc, results, {})
 
-    # Find minimum `v` value and `s_id`
-    vm = min(vs.values())
-    vm_s_id = next(s_id for s_id in vs if vs[s_id] == vm)
-
-    # Remove anomaly from S if found, add to the active set otherwise
-    attrs = next(s for s in S if get_s_id(s) == vm_s_id)
-    if attrs in ANOMALIES:
-      anomaly_id = db['anomalies_{}'.format(num_proj)].insert_one(attrs).inserted_id
-      log_info('Inserted anomaly with id {} in the anomalies collection'.format(anomaly_id))
-    else:
-      # Extend candidate with its `v` value
-      attrs['v'] = vm
-      attrs['usno_vector'] = get_usno_projection(attrs.get('image_key'), attrs.get('usno_band'), num_proj).tolist()
-      attrs['panstarr_vector'] = get_panstarr_projection(attrs.get('image_key'), attrs.get('panstarr_band'), num_proj).tolist()
+    if list(vs.values()).count(list(vs.values())[0]) == len(vs.values()):
+      attrs = {
+        'image_key': 990,
+        'usno_band': 'red1',
+        'panstarr_band': 'r',
+        'v': 0,
+        'usno_vector': get_usno_projection(990, 'red1', num_proj).tolist(),
+        'panstarr_vector': get_panstarr_projection(990, 'r', num_proj).tolist()
+      }
       member_id = db['active_set_{}'.format(num_proj)].insert_one(attrs).inserted_id
       log_info('Inserted member with id {} in active set'.format(member_id))
+    else:
+      # Find minimum `v` value and `s_id`
+      vm = min(vs.values())
+      vm_s_id = next(s_id for s_id in vs if vs[s_id] == vm)
+
+      # Remove anomaly from S if found, add to the active set otherwise
+      attrs = next(s for s in S if get_s_id(s) == vm_s_id)
+      if attrs in ANOMALIES:
+        anomaly_id = db['anomalies_{}'.format(num_proj)].insert_one(attrs).inserted_id
+        log_info('Inserted anomaly with id {} in the anomalies collection'.format(anomaly_id))
+      else:
+        # Extend candidate with its `v` value
+        attrs['v'] = vm
+        attrs['usno_vector'] = get_usno_projection(attrs.get('image_key'), attrs.get('usno_band'), num_proj).tolist()
+        attrs['panstarr_vector'] = get_panstarr_projection(attrs.get('image_key'), attrs.get('panstarr_band'), num_proj).tolist()
+        member_id = db['active_set_{}'.format(num_proj)].insert_one(attrs).inserted_id
+        log_info('Inserted member with id {} in active set'.format(member_id))
 
     # Keep crawling until we have reached the max number of time-steps
     last_time_step = db['time_steps_{}'.format(num_proj)].find_one({}, sort=[('_id', DESCENDING)])
