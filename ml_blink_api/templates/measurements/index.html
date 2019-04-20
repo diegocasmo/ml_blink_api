@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  {% include 'measurements/_form.html' %}
+  <!-- {% include 'measurements/_form.html' %} -->
 
   <table class='table table-bordered'>
   <thead>
@@ -19,11 +19,10 @@
   </thead>
     {% for x in all_measurements %}
       <tr>
-        <td class='p-2'>
+        <td class='p-2 align-middle'>
           <div style='width: 150px;' class='text-right'>
             <p class='m-0'>Projections: {{ x['num_proj'] }} </p>
             <p class='m-0'>Anomalies found: {{ x['anomalies'] }} </p>
-            <p class='m-0'>Time steps: {{ x['time_steps'] }} </p>
           </div>
         </td>
         {% for y in x['active_set'] %}
