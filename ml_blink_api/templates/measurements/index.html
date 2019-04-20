@@ -10,7 +10,7 @@
       <th class='text-center' scope='col'>Setup</th>
       {% if all_measurements|length > 0 %}
         {% for y in all_measurements[0]['active_set'] %}
-          {% if (loop.index - 1) % delimiter == 0 %}
+          {% if (loop.index - 1) % delimiter == 0 and (loop.index - 1) <= 200 %}
             <th class='text-center' scope='col'>t={{ loop.index - 1 }}</th>
           {% endif %}
         {% endfor %}
