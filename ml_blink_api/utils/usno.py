@@ -3,17 +3,18 @@ from PIL import Image
 from ml_blink_api.settings import APP_STATIC
 from ml_blink_api.utils.linalg import normalize
 
-USNO_VECTOR_SIZE = 297*298
+USNO_VECTOR_SIZE = 298*297
 
-def get_usno_vector(image_key, band):
+def get_usno_vector(image_key, band, threshold = 60):
   '''
   Return an USNO image specified by the `image_key` and `band` as a vector
   '''
   file_name = 'USNO{}{}.gif'.format(image_key, band)
   file_path = '{}/beta_images/USNO1001/{}'.format(APP_STATIC, file_name)
-  return normalize(np.asarray(Image.open(file_path)).flatten())
+  xs = np.asarray(Image.open(file_path)).flatten()
+  return np.where(xs > threshold, 255, 0).astype('uint8')
 
-def get_usno_projection(image_key, band, num_proj = 5000):
+def get_usno_projection(image_key, band, num_proj = 1001):
   '''
   Return a normalized USNO vector with its dimensionality reduced to `num_proj`
   '''

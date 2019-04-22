@@ -5,15 +5,16 @@ from ml_blink_api.utils.linalg import normalize
 
 PANSTARR_VECTOR_SIZE = 1200*1200
 
-def get_panstarr_vector(image_key, band):
+def get_panstarr_vector(image_key, band, threshold = 220):
   '''
   Return a PanSTARRs image specified by the `image_key` and `band` as a vector
   '''
   file_name = 'PanSTARR{}{}.jpg'.format(image_key, band)
   file_path = '{}/beta_images/PanSTARRS_ltd/{}'.format(APP_STATIC, file_name)
-  return normalize(np.asarray(Image.open(file_path)).flatten())
+  xs = np.asarray(Image.open(file_path)).flatten()
+  return np.where(xs > threshold, 255, 0).astype('uint8')
 
-def get_panstarr_projection(image_key, band, num_proj = 5000):
+def get_panstarr_projection(image_key, band, num_proj = 1001):
   '''
   Return a normalized PanSTARRs vector with its dimensionality reduced to `num_proj`
   '''
