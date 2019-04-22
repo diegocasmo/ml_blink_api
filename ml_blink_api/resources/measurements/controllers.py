@@ -26,7 +26,7 @@ def index():
 
   return render_template('measurements/index.html',
     all_measurements = all_measurements,
-    delimiter = 20
+    delimiter = 5
   )
 
 @measurements.route('', methods=['POST'])

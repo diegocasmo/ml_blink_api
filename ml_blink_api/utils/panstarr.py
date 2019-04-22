@@ -11,7 +11,7 @@ def get_panstarr_vector(image_key, band):
   '''
   file_name = 'PanSTARR{}{}.jpg'.format(image_key, band)
   file_path = '{}/beta_images/PanSTARRS_ltd/{}'.format(APP_STATIC, file_name)
-  return np.asarray(Image.open(file_path)).flatten()
+  return normalize(np.asarray(Image.open(file_path)).flatten())
 
 def get_panstarr_projection(image_key, band, num_proj = 5000):
   '''
