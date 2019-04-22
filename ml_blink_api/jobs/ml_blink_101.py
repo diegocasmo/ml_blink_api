@@ -1,5 +1,6 @@
 import math
 import json
+import random
 import operator
 import numpy as np
 import multiprocessing
@@ -130,7 +131,12 @@ def ml_blink_101_thandle_compute_v_finished(results, S, num_proj):
 
     # Find minimum `v` value and `s_id`
     vm = min(vs.values())
-    vm_s_id = next(s_id for s_id in vs if vs[s_id] == vm)
+    vm_s_id = [s_id for s_id in vs if vs[s_id] == vm]
+    # Break ties randomly
+    if len(vm_s_id) > 1:
+      vm_s_id = random.choice(vm_s_id)
+    else:
+      vm_s_id = vm_s_id[0]
 
     # Remove anomaly from S if found, add to the active set otherwise
     attrs = next(s for s in S if get_s_id(s) == vm_s_id)
