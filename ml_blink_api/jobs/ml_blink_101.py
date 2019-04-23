@@ -15,13 +15,20 @@ from ml_blink_api.utils.panstarr import get_panstarr_projection
 from ml_blink_api.utils.celery_logger import log_info, log_error
 from ml_blink_api.config.db import db
 
-MAX_TIME_STEPS = 201
-# NUM_PROJ = [10, 20, 50, 100, 200, 500, 1000, 2500, 5000, 7500, 10000]
-NUM_PROJ = [1001]
+MAX_TIME_STEPS = 251
+NUM_PROJ = [10, 20, 50, 100, 200, 500, 1000, 2500, 5000, 7500, 10000]
 
 ANOMALIES = [{
   'image_key': 13,
+  'usno_band': 'blue1',
+  'panstarr_band': 'g'
+}, {
+  'image_key': 13,
   'usno_band': 'blue2',
+  'panstarr_band': 'g'
+}, {
+  'image_key': 56,
+  'usno_band': 'blue1',
   'panstarr_band': 'g'
 }, {
   'image_key': 56,
@@ -29,12 +36,16 @@ ANOMALIES = [{
   'panstarr_band': 'g'
 }, {
   'image_key': 679,
-  'usno_band': 'blue2',
-  'panstarr_band': 'g'
+  'usno_band': 'ir',
+  'panstarr_band': 'z'
 }, {
   'image_key': 831,
-  'usno_band': 'blue2',
-  'panstarr_band': 'g'
+  'usno_band': 'red1',
+  'panstarr_band': 'r'
+}, {
+  'image_key': 831,
+  'usno_band': 'red2',
+  'panstarr_band': 'r'
 }]
 
 def get_potential_candidates(image_keys, bands, num_proj):

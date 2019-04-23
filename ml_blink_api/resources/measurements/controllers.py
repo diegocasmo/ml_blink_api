@@ -1,7 +1,7 @@
 from pymongo import DESCENDING
 from ml_blink_api.config.db import db
 from flask import Blueprint, render_template, redirect, url_for
-from ml_blink_api.jobs.ml_blink_101 import ml_blink_101_tcrawl_candidates, NUM_PROJ
+from ml_blink_api.jobs.ml_blink_101 import ml_blink_101_tcrawl_candidates, NUM_PROJ, ANOMALIES
 
 measurements = Blueprint('measurements', __name__)
 
@@ -26,7 +26,8 @@ def index():
 
   return render_template('measurements/index.html',
     all_measurements = all_measurements,
-    delimiter = 5
+    total_num_anomalies = len(ANOMALIES),
+    delimiter = 20
   )
 
 @measurements.route('', methods=['POST'])

@@ -19,10 +19,11 @@
     </thead>
       {% for x in all_measurements %}
         <tr>
-          <td class='p-2 align-middle'>
+          <td class='p-1 align-middle'>
             <div style='width: 150px;' class='text-right'>
+              <p class='m-0'>t={{ x['active_set']|length }}</p>
               <p class='m-0'>Projections: {{ x['num_proj'] }} </p>
-              <p class='m-0'>Anomalies found: {{ x['anomalies'] }} </p>
+              <p class='m-0'>Anomalies: {{ x['anomalies'] }}/{{ total_num_anomalies }} </p>
             </div>
           </td>
           {% for y in x['active_set'] %}
