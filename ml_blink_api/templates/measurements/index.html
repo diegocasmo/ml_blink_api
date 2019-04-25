@@ -11,7 +11,7 @@
         {% if all_measurements|length > 0 %}
           {% for y in all_measurements[0]['active_set'] %}
             {% if (loop.index - 1) % delimiter == 0 and (loop.index - 1) <= 251 %}
-              <th class='text-center' scope='col'>t={{ anomalies|length + active_set|length }}</th>
+              <th class='text-center' scope='col'>t={{ loop.index - 1 }}</th>
             {% endif %}
           {% endfor %}
         {% endif %}
@@ -21,7 +21,7 @@
         <tr>
           <td class='p-1 align-middle'>
             <div style='width: 150px;' class='text-right'>
-              <p class='m-0'>t={{ x['active_set']|length }}</p>
+              <p class='m-0'>t={{ x['anomalies'] + x['active_set_size'] }}</p>
               <p class='m-0'>Projections: {{ x['num_proj'] }} </p>
               <p class='m-0'>Anomalies: {{ x['anomalies'] }}/{{ total_num_anomalies }} </p>
             </div>
