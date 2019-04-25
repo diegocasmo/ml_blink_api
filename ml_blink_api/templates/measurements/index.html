@@ -10,8 +10,8 @@
         <th class='text-center' scope='col'>Setup</th>
         {% if all_measurements|length > 0 %}
           {% for y in all_measurements[0]['active_set'] %}
-            {% if (loop.index - 1) % delimiter == 0 and (loop.index - 1) <= 201 %}
-              <th class='text-center' scope='col'>t={{ loop.index - 1 }}</th>
+            {% if (loop.index - 1) % delimiter == 0 and (loop.index - 1) <= 251 %}
+              <th class='text-center' scope='col'>t={{ anomalies|length + active_set|length }}</th>
             {% endif %}
           {% endfor %}
         {% endif %}
