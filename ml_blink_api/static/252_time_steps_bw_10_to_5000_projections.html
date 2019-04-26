@@ -1,0 +1,6723 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://130.238.28.76/measurements -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>ML-Blink API</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class='navbar navbar-expand-sm bg-dark mb-4'>
+    <ul class='navbar-nav navbar-nav mr-auto mt-2 mt-lg-0'>
+      <li class='nav-item'>
+        <a class='nav-link text-white' href='/crawl'>Crawler</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link text-white' href='/potential_anomalies'>Potential Anomalies</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link text-white' href='/measurements'>Measurements</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button onclick="location.reload(true);" class="btn btn-primary navbar-btn">Refresh</button>
+    </form>
+  </nav>
+
+  <div class="container">
+
+  <h1>252 time steps, BW, 10-5000 projections</h1>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">Setup</th>
+
+
+
+              <th class="text-center" scope="col">t=0</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=20</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=40</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=60</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=80</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=100</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=120</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=140</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=160</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=180</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=200</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=220</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <th class="text-center" scope="col">t=240</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </tr>
+    </thead>
+
+        <tbody><tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 10 </p>
+              <p class="m-0">Anomalies: 0/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO373red1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR373r.jpg">
+                  <p class="text-center m-0">373</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO757blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR757g.jpg">
+                  <p class="text-center m-0">757</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO433ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR433z.jpg">
+                  <p class="text-center m-0">433</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO26ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR26z.jpg">
+                  <p class="text-center m-0">26</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO15ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR15z.jpg">
+                  <p class="text-center m-0">15</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO147blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR147g.jpg">
+                  <p class="text-center m-0">147</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO452blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR452g.jpg">
+                  <p class="text-center m-0">452</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO385blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR385g.jpg">
+                  <p class="text-center m-0">385</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO154blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR154g.jpg">
+                  <p class="text-center m-0">154</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO154blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR154g.jpg">
+                  <p class="text-center m-0">154</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO709ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR709z.jpg">
+                  <p class="text-center m-0">709</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO371red2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR371r.jpg">
+                  <p class="text-center m-0">371</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO260blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR260g.jpg">
+                  <p class="text-center m-0">260</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 20 </p>
+              <p class="m-0">Anomalies: 0/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO967blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR967g.jpg">
+                  <p class="text-center m-0">967</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO221blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR221g.jpg">
+                  <p class="text-center m-0">221</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO579blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR579g.jpg">
+                  <p class="text-center m-0">579</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO182blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR182g.jpg">
+                  <p class="text-center m-0">182</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO853ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR853z.jpg">
+                  <p class="text-center m-0">853</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO730ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR730z.jpg">
+                  <p class="text-center m-0">730</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO869ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR869z.jpg">
+                  <p class="text-center m-0">869</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO472blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR472g.jpg">
+                  <p class="text-center m-0">472</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO508blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR508g.jpg">
+                  <p class="text-center m-0">508</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO717ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR717z.jpg">
+                  <p class="text-center m-0">717</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO838blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR838g.jpg">
+                  <p class="text-center m-0">838</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO162blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR162g.jpg">
+                  <p class="text-center m-0">162</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO387ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR387z.jpg">
+                  <p class="text-center m-0">387</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 50 </p>
+              <p class="m-0">Anomalies: 0/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO56ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR56z.jpg">
+                  <p class="text-center m-0">56</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO270ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR270z.jpg">
+                  <p class="text-center m-0">270</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO73blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR73g.jpg">
+                  <p class="text-center m-0">73</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO644blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR644g.jpg">
+                  <p class="text-center m-0">644</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO120blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR120g.jpg">
+                  <p class="text-center m-0">120</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO603blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR603g.jpg">
+                  <p class="text-center m-0">603</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO624blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR624g.jpg">
+                  <p class="text-center m-0">624</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO116blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR116g.jpg">
+                  <p class="text-center m-0">116</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO173ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR173z.jpg">
+                  <p class="text-center m-0">173</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO358ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR358z.jpg">
+                  <p class="text-center m-0">358</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO557blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR557g.jpg">
+                  <p class="text-center m-0">557</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO182blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR182g.jpg">
+                  <p class="text-center m-0">182</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO938blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR938g.jpg">
+                  <p class="text-center m-0">938</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 100 </p>
+              <p class="m-0">Anomalies: 3/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO664blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR664g.jpg">
+                  <p class="text-center m-0">664</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO984blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR984g.jpg">
+                  <p class="text-center m-0">984</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO226blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR226g.jpg">
+                  <p class="text-center m-0">226</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO747blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR747g.jpg">
+                  <p class="text-center m-0">747</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO615ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR615z.jpg">
+                  <p class="text-center m-0">615</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO397ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR397z.jpg">
+                  <p class="text-center m-0">397</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO610blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR610g.jpg">
+                  <p class="text-center m-0">610</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO720blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR720g.jpg">
+                  <p class="text-center m-0">720</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO275blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR275g.jpg">
+                  <p class="text-center m-0">275</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO507ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR507z.jpg">
+                  <p class="text-center m-0">507</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO373blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR373g.jpg">
+                  <p class="text-center m-0">373</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO728blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR728g.jpg">
+                  <p class="text-center m-0">728</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO275ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR275z.jpg">
+                  <p class="text-center m-0">275</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 200 </p>
+              <p class="m-0">Anomalies: 3/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO708ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR708z.jpg">
+                  <p class="text-center m-0">708</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO173blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR173g.jpg">
+                  <p class="text-center m-0">173</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO50blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR50g.jpg">
+                  <p class="text-center m-0">50</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO756ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR756z.jpg">
+                  <p class="text-center m-0">756</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO367ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR367z.jpg">
+                  <p class="text-center m-0">367</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO944ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR944z.jpg">
+                  <p class="text-center m-0">944</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO301blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR301g.jpg">
+                  <p class="text-center m-0">301</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO121blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR121g.jpg">
+                  <p class="text-center m-0">121</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO838blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR838g.jpg">
+                  <p class="text-center m-0">838</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO122blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR122g.jpg">
+                  <p class="text-center m-0">122</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO531blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR531g.jpg">
+                  <p class="text-center m-0">531</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO413blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR413g.jpg">
+                  <p class="text-center m-0">413</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO260blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR260g.jpg">
+                  <p class="text-center m-0">260</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 500 </p>
+              <p class="m-0">Anomalies: 4/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO149red2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR149r.jpg">
+                  <p class="text-center m-0">149</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO720blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR720g.jpg">
+                  <p class="text-center m-0">720</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO740ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR740z.jpg">
+                  <p class="text-center m-0">740</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO618blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR618g.jpg">
+                  <p class="text-center m-0">618</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO756ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR756z.jpg">
+                  <p class="text-center m-0">756</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO21blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR21g.jpg">
+                  <p class="text-center m-0">21</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO147blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR147g.jpg">
+                  <p class="text-center m-0">147</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO996blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR996g.jpg">
+                  <p class="text-center m-0">996</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO270blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR270g.jpg">
+                  <p class="text-center m-0">270</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO262blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR262g.jpg">
+                  <p class="text-center m-0">262</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO936blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR936g.jpg">
+                  <p class="text-center m-0">936</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO944blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR944g.jpg">
+                  <p class="text-center m-0">944</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO557blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR557g.jpg">
+                  <p class="text-center m-0">557</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 750 </p>
+              <p class="m-0">Anomalies: 4/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO673blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR673g.jpg">
+                  <p class="text-center m-0">673</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO662ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR662z.jpg">
+                  <p class="text-center m-0">662</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO377blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR377g.jpg">
+                  <p class="text-center m-0">377</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO802blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR802g.jpg">
+                  <p class="text-center m-0">802</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO880blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR880g.jpg">
+                  <p class="text-center m-0">880</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO457blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR457g.jpg">
+                  <p class="text-center m-0">457</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO438blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR438g.jpg">
+                  <p class="text-center m-0">438</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO330red2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR330r.jpg">
+                  <p class="text-center m-0">330</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO385blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR385g.jpg">
+                  <p class="text-center m-0">385</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO702blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR702g.jpg">
+                  <p class="text-center m-0">702</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO806blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR806g.jpg">
+                  <p class="text-center m-0">806</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO889blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR889g.jpg">
+                  <p class="text-center m-0">889</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO120blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR120g.jpg">
+                  <p class="text-center m-0">120</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 1000 </p>
+              <p class="m-0">Anomalies: 3/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO869blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR869g.jpg">
+                  <p class="text-center m-0">869</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO463blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR463g.jpg">
+                  <p class="text-center m-0">463</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO662ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR662z.jpg">
+                  <p class="text-center m-0">662</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO501red2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR501r.jpg">
+                  <p class="text-center m-0">501</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO864blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR864g.jpg">
+                  <p class="text-center m-0">864</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO112ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR112z.jpg">
+                  <p class="text-center m-0">112</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO213blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR213g.jpg">
+                  <p class="text-center m-0">213</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO225blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR225g.jpg">
+                  <p class="text-center m-0">225</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO220blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR220g.jpg">
+                  <p class="text-center m-0">220</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO129ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR129z.jpg">
+                  <p class="text-center m-0">129</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO486blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR486g.jpg">
+                  <p class="text-center m-0">486</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO802blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR802g.jpg">
+                  <p class="text-center m-0">802</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO666blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR666g.jpg">
+                  <p class="text-center m-0">666</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 2500 </p>
+              <p class="m-0">Anomalies: 3/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO273red1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR273r.jpg">
+                  <p class="text-center m-0">273</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO756blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR756g.jpg">
+                  <p class="text-center m-0">756</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO93ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR93z.jpg">
+                  <p class="text-center m-0">93</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO877blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR877g.jpg">
+                  <p class="text-center m-0">877</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO414blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR414g.jpg">
+                  <p class="text-center m-0">414</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO106blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR106g.jpg">
+                  <p class="text-center m-0">106</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO451ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR451z.jpg">
+                  <p class="text-center m-0">451</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO634ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR634z.jpg">
+                  <p class="text-center m-0">634</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO758blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR758g.jpg">
+                  <p class="text-center m-0">758</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO537blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR537g.jpg">
+                  <p class="text-center m-0">537</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO749blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR749g.jpg">
+                  <p class="text-center m-0">749</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO461blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR461g.jpg">
+                  <p class="text-center m-0">461</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO595blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR595g.jpg">
+                  <p class="text-center m-0">595</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+        <tr>
+          <td class="p-1 align-middle">
+            <div style="width: 150px;" class="text-right">
+              <p class="m-0">t=252</p>
+              <p class="m-0">Projections: 5000 </p>
+              <p class="m-0">Anomalies: 2/7 </p>
+            </div>
+          </td>
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO971ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR971z.jpg">
+                  <p class="text-center m-0">971</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO260ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR260z.jpg">
+                  <p class="text-center m-0">260</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO333blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR333g.jpg">
+                  <p class="text-center m-0">333</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO871ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR871z.jpg">
+                  <p class="text-center m-0">871</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO649blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR649g.jpg">
+                  <p class="text-center m-0">649</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO846blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR846g.jpg">
+                  <p class="text-center m-0">846</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO434blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR434g.jpg">
+                  <p class="text-center m-0">434</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO9ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR9z.jpg">
+                  <p class="text-center m-0">9</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO531blue1.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR531g.jpg">
+                  <p class="text-center m-0">531</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO198ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR198z.jpg">
+                  <p class="text-center m-0">198</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO113ir.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR113z.jpg">
+                  <p class="text-center m-0">113</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO964blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR964g.jpg">
+                  <p class="text-center m-0">964</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <td class="text-center p-2">
+                <div style="width: 160px;" class="text-center m-auto">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/USNO1001/USNO610blue2.gif">
+                  <img class="border border-dark" width="75" height="75" src="http://130.238.28.76/static/beta_images/PanSTARRS_ltd/PanSTARR610g.jpg">
+                  <p class="text-center m-0">610</p>
+                </div>
+              </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+  </tbody></table>
+
+
+  </div>
+
+</body></html>
