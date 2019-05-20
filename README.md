@@ -12,9 +12,14 @@ Server API for ML Blink.
     - Set `ORIGINS=http://localhost:8080`
   - Run `docker-compose build` to build the Docker services
     - Only run this once or if the Dockerfile has been updated
-  - Run `docker-compose up` to start the Docker container services
+  - Start: `docker-compose up`
+  - Stop : `docker-compose down`
   - Run `mongo 127.0.0.1:27017` to start the MongoDB shell
     - This is not required to start the application, but can be useful when you want to manually check the database's collections
+  - Rebuild the application (changes to the `requirements.txt` or Docker configuration file require a rebuild):
+``` bash
+docker-compose up --build
+```
 
 ### [API Documentation](./ml_blink_api/README.md)
   - Documentation of the endpoints exposed by the ML-Blink API, the methods each of them supports, and the attributes these expect.

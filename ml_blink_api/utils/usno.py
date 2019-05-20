@@ -13,13 +13,14 @@ def get_usno_vector(image_key, band):
   file_path = '{}/beta_images/USNO1001/{}'.format(APP_STATIC, file_name)
   return np.asarray(Image.open(file_path)).flatten()
 
-def get_usno_projection(image_key, band, num_proj = 2000):
+def get_usno_projection(image_key, band, num_proj = 250, threshold = 60):
   '''
   Return a normalized USNO vector with its dimensionality reduced to `num_proj`
   '''
   xs = get_usno_vector(image_key, band)
+  xs_bw = np.where(xs > threshold, 255, 0).astype('uint8')
   slices = np.arange(0, USNO_VECTOR_SIZE, int(USNO_VECTOR_SIZE / num_proj))
-  return normalize(np.add.reduceat(xs, slices))
+  return normalize(np.add.reduceat(xs_bw, slices))
 
 def has_expected_usno_dim(image_key, band):
   '''

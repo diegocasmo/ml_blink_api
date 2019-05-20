@@ -13,13 +13,14 @@ def get_panstarr_vector(image_key, band):
   file_path = '{}/beta_images/PanSTARRS_ltd/{}'.format(APP_STATIC, file_name)
   return np.asarray(Image.open(file_path)).flatten()
 
-def get_panstarr_projection(image_key, band, num_proj = 2000):
+def get_panstarr_projection(image_key, band, num_proj = 250, threshold = 220):
   '''
   Return a normalized PanSTARRs vector with its dimensionality reduced to `num_proj`
   '''
   xs = get_panstarr_vector(image_key, band)
+  xs_bw = np.where(xs > threshold, 255, 0).astype('uint8')
   slices = np.arange(0, PANSTARR_VECTOR_SIZE, int(PANSTARR_VECTOR_SIZE / num_proj))
-  return normalize(np.add.reduceat(xs, slices))
+  return normalize(np.add.reduceat(xs_bw, slices))
 
 def has_expected_panstarr_dim(image_key, band):
   '''
