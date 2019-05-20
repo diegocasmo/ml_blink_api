@@ -1,0 +1,12 @@
+{% if candidates|length > 0 %}
+  <h4>Candidates stored DB:</h4>
+  <ol start='0'>
+    {% for x in candidates %}
+      <li>
+        Image key: {{ x['image_key'] }}, USNO band: {{ x['usno_band'] }}, PanSTARR band: {{ x['panstarr_band'] }}, v: {{ x['v'] }}
+      </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <h4>There are no candidates stored DB</h4>
+{% endif %}
