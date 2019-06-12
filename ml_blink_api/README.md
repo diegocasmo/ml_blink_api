@@ -1,8 +1,8 @@
 # ML-Blink API
 
-This document lists all the endpoints defined by the resources the ML-Bink API exposes.
+This document lists all the endpoints defined by the resources the ML-Bink JSON API exposes. The ML-Blink API also provides a very simple UI to analyze candidates, potential anomalies, and members of the active set by accessing the [http://localhost:5000/crawl](http://localhost:5000/crawl).
 
-## Resources:
+## JSON API:
 
 ### Users
   - Description: A user who can log in/out of the API, create, and read resources from it.
